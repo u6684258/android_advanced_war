@@ -4,10 +4,9 @@ import com.example.assignapp2019s1.units.Unit;
 
 public abstract class Terrain {
     TerrainType terrainType;
-    boolean isOccupied;
+    boolean isOccupied = false;
     double defenceRating;
     double movementCost;
-    int captureScore;
     Unit unitHere;
 
     public void takePosition(Unit unit) {
@@ -26,7 +25,6 @@ enum TerrainType {
     Mountain,
     Road,
     Forest,
-    Pipe,
     Water,
     City,
     Workshop

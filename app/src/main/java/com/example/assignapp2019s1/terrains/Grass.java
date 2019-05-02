@@ -7,7 +7,6 @@ public class Grass extends Terrain {
     boolean isOccupied = false;
     double defenceRating = 1;
     double movementCost = 1.5;
-    int captureScore = 0;
 
     public Grass(){}
 

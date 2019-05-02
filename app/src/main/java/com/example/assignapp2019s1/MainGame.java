@@ -93,7 +93,10 @@ public class MainGame {
     /*
     if the player set the unit to "wait", use this. set the unit so that it cannot take any actions.
      */
-    public static void _wait(Unit unit) {}
+    public static void _wait(Unit unit) {
+        unit.setCan_move(false);
+        unit.setCan_fire(false);
+    }
 
     /*
     capture the city with the unit. decrease captureScore of the city, formula in design document

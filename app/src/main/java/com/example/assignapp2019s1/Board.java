@@ -21,25 +21,22 @@ public class Board {
                     out = new Grass();
                     break;
                 case "Mountain":
-                    out = new Grass();
+                    out = new Mountain();
                     break;
                 case "Road":
-                    out = new Grass();
+                    out = new Road();
                     break;
                 case "Forest":
-                    out = new Grass();
-                    break;
-                case "Pipe":
-                    out = new Grass();
+                    out = new Forest();
                     break;
                 case "Water":
-                    out = new Grass();
+                    out = new Water();
                     break;
                 case "City":
-                    out = new Grass();
+                    out = new City();
                     break;
                 case "Workshop":
-                    out = new Grass();
+                    out = new WorkShop();
                     break;
                 default:
                     out = new Grass();
