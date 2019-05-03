@@ -13,6 +13,7 @@ public abstract class Terrain {
         if (!isOccupied) {
             this.unitHere = unit;
             isOccupied = !isOccupied;
+            //
         }
     }
 
@@ -32,4 +33,5 @@ enum TerrainType {
     Water,//infantry 2, tank infinity
     City, //1
     Workshop//1
+    //
 }
