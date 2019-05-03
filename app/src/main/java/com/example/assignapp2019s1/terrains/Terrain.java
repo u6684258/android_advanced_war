@@ -10,22 +10,26 @@ public abstract class Terrain {
     Unit unitHere;
 
     public void takePosition(Unit unit) {
-        this.unitHere = unit;
-        isOccupied = !isOccupied;
+        if (!isOccupied) {
+            this.unitHere = unit;
+            isOccupied = !isOccupied;
+        }
     }
 
     public void leavePosition() {
-        this.unitHere = null;
-        isOccupied = !isOccupied;
+        if (isOccupied) {
+            this.unitHere = null;
+            isOccupied = !isOccupied;
+        }
     }
 }
 
 enum TerrainType {
-    Grass,
-    Mountain,
-    Road,
-    Forest,
-    Water,
-    City,
-    Workshop
+    Grass,//draft: movement cost1
+    Mountain,//mc:2
+    Road,//0.5
+    Forest,//1.5
+    Water,//infantry 2, tank infinity
+    City, //1
+    Workshop//1
 }

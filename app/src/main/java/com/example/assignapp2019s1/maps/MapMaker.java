@@ -20,7 +20,7 @@ public class MapMaker {
     private static final String MAP = "map";
     private static final String POS = "pos";
     private static final String TYPE = "type";
-    public static final String PATH = "/Users/mac/AndroidStudioProjects/AssignApp2019s1/app/src/main/java/com/example/assignapp2019s1/maps/";
+    public static final String PATH = "app/src/main/java/com/example/assignapp2019s1/maps/";
     HashMap<String, String> map = new HashMap<>();
 
     public MapMaker(HashMap map) {
