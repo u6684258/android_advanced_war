@@ -236,6 +236,7 @@ public class MapMaker {
         map2.put("P5", "Mountain");
         map2.put("P6", "Grass");
         map2.put("P7", "Grass");
+        //pic: map1
 
 
         MapMaker data = new MapMaker(map2);
