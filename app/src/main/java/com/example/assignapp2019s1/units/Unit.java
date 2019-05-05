@@ -5,14 +5,15 @@ import com.example.assignapp2019s1.Player;
 public abstract class Unit {
     UnitType unitType;
     UnitSubType unitSubType;
-    Player Owner;
+    Player owner;
 
     //HP of the unit
     int hitpoints;
     int ammo;
     int fuel;
     int attackRange;
-    double Mobility;
+    double mobility;
+    double movePoint;
     // see design document for explain
     double damageRating;
     double defenseRating;
@@ -28,11 +29,11 @@ public abstract class Unit {
     String position;
 
     public Player getOwner() {
-        return Owner;
+        return owner;
     }
 
     public void setOwner(Player owner) {
-        Owner = owner;
+        this.owner = owner;
     }
 
     public int getHitpoints() {
@@ -64,7 +65,7 @@ public abstract class Unit {
     }
 
     public double getMobility() {
-        return Mobility;
+        return mobility;
     }
 
     public double getDamageRating() {
@@ -107,6 +108,13 @@ public abstract class Unit {
         this.position = position;
     }
 
+    public double getMovePoint() {
+        return movePoint;
+    }
+
+    public void setMovePoint(double movePoint) {
+        this.movePoint = movePoint;
+    }
 
     //the unit moves. change everything need to change.
     public void takeMove(String des) {

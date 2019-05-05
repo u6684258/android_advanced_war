@@ -2,23 +2,29 @@ package com.example.assignapp2019s1;
 
 
 import com.example.assignapp2019s1.terrains.Terrain;
+import com.example.assignapp2019s1.units.Infantry;
 import com.example.assignapp2019s1.units.Unit;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainGame {
     Board current;
     Player player1;
     Player player2;
     HashMap moves;
-    int turnCount;
-    int whoseTurn;
-    boolean gameStart;
+    int turnCount = 0;
+    int whoseTurn = 0;
+    boolean gameStart = false;
 
     //initialise
     public MainGame() {
-
+        this.player1 = new Player();
+        this.player2 = new Player();
+        this.moves = new HashMap();
+        this.gameStart = true;
     }
 
     /*
@@ -28,16 +34,82 @@ public class MainGame {
     And units have a variable recording which player it belongs.
      */
     public static ArrayList<Unit> allUnitsOfCurrentPlayer(Player player, ArrayList<Unit> allUnits){
-        return null;
+        ArrayList<Unit> outcome = new ArrayList<>();
+        for (Unit u : allUnits) {
+            if (u.getOwner() == player) {
+                outcome.add(u);
+            }
+        }
+        return outcome;
     }
+
     /*
     given a unit and the map with terrain, calculate all reachable place of this unit.
     tips: unit has a variable recording its current position. Terrain record the unit on it as well.
     the unit can only move if it still have action points.
      */
-    public static ArrayList<String> getMovementRange(Unit unit, HashMap<String, Terrain> map) {
+    public static ArrayList<String> getMovementRange(Unit unit, Board board) {
+        ArrayList<String> outcome = new ArrayList<>();
+        outcome = allMoveableNeighbors(unit.getPosition(), unit.getPosition(), unit.getMovePoint(), board, outcome);
+        outcome.remove(unit.getPosition());
+        return outcome;
+    }
 
-        return null;
+    public static ArrayList<String> allMoveableNeighbors(String startPos, String des, double remainedMovePoints, Board board, ArrayList<String> list){
+        ArrayList<String> outcome = new ArrayList<>();
+        for (String to : board.neighbors(des)) {
+            if (!list.contains(to) && canMoveThere(startPos, remainedMovePoints, to, board) && !outcome.contains(to)) {
+                outcome.add(to);
+            }
+        }
+        for (String to : outcome) {
+            if (!list.contains(to)){
+            list.add(to);
+            list = allMoveableNeighbors(startPos, to, remainedMovePoints, board, list);
+            }
+        }
+        return list;
+    }
+
+    public static boolean canMoveThere(String startPos, double remainedMovePoints, String des, Board currentBoard) {
+        int initDis = Board.distance(startPos, des);
+        double lowestCost = 999;
+        String towards = "";
+
+        while (remainedMovePoints > 0){
+            if (currentBoard.neighbors(startPos).contains(des)) {
+                if (currentBoard.map.get(des).getMovementCost() <= remainedMovePoints){
+                    return true;
+                }
+                else return false;
+            }
+            else {
+            for (String to : currentBoard.neighbors(startPos)) {
+                double a = currentBoard.map.get(to).getMovementCost();
+                if (Board.distance(to, des) < initDis &&
+                        a < lowestCost && a < remainedMovePoints &&
+                        !currentBoard.map.get(to).isOccupied()) {
+                    lowestCost = currentBoard.map.get(to).getMovementCost();
+                    towards = to;
+                }
+            }}
+            remainedMovePoints-=lowestCost;
+            lowestCost = 999;
+            if (!towards.isEmpty())
+                initDis = Board.distance(towards, des);
+            startPos = towards;
+            towards = "";
+
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        MainGame game = new MainGame();
+        game.current = new Board("map1");
+        Unit a = new Infantry(game.player1, "C3");
+        a.setMovePoint(3);
+        System.out.println(getMovementRange(a, game.current));
     }
     /*
     given a unit and a destination and the map with terrain, check if the move is legal.
@@ -48,8 +120,18 @@ public class MainGame {
     tips: unit has a variable recording its current position. Terrain record the unit on it as well.
           change hashmap to board, if you need to access arrayList of all units as well.
      */
-    public static boolean isLegalMove(Unit unit, String des, HashMap<String, Terrain> map) {
-        return false;
+    public static boolean isLegalMove(Unit unit, String des, Board currentBoard) {
+        boolean outcome = true;
+        if (currentBoard.map.get(des).isOccupied())
+            outcome = false;
+//        if (map.get(des).getTerrainType() == TerrainType.Water)
+//            outcome = false;
+        if (!getMovementRange(unit, currentBoard).contains(des))
+            outcome = false;
+        if (!unit.isCan_move()) {
+            outcome = false;
+        }
+        return outcome;
     }
 
     /*
@@ -60,7 +142,11 @@ public class MainGame {
              add unit to new position(use takePosition() in Terrain)
     tips: change hashmap to board, if you need to access arrayList of all units as well.
      */
-    public static void move(Unit unit, String des, HashMap<String, Terrain> map){}
+    public static void move(Unit unit, String des, Board currentBoard){
+        if (!isLegalMove(unit, des, currentBoard))
+            return;
+        unit.takeMove(des);
+    }
 
     /*
     given a unit and the map with terrain, calculate all reachable enemies the unit can attack.
@@ -75,7 +161,8 @@ public class MainGame {
     calculate damage, formula in design document
      */
     public static int getDamage(Unit attacker, Unit beAttacked, HashMap<String, Terrain> map) {
-        return 1;
+        double defenceRate = map.get(beAttacked.getPosition()).getDefenceRating();
+        return -1;
     }
 
     /*
@@ -88,7 +175,9 @@ public class MainGame {
              set whatever configures changed for units beside hp, use takeFire() in Unit.
              if unit destroyed, remove it from arraylist of all units
      */
-    public static void attack(Unit attacker, Unit beAttacked, Board board){}
+    public static void attack(Unit attacker, Unit beAttacked, Board board){
+
+    }
 
     /*
     if the player set the unit to "wait", use this. set the unit so that it cannot take any actions.
@@ -102,12 +191,19 @@ public class MainGame {
     capture the city with the unit. decrease captureScore of the city, formula in design document
     Make sure the unit cannot take any other actions after this.
      */
-    public static void capture(Unit unit, Terrain city){}
+    public static void capture(Unit unit, Terrain city){
+    }
 
     /*
     check game over
      */
-    public static void checkGameOver() {}
+    public boolean checkGameOver() {
+        if (current.map.get(player1.hqAddress).getUnitHere().getOwner()==player2 ||
+                current.map.get(player2.hqAddress).getUnitHere().getOwner()==player1)
+            return true;
+        else return false;
+    }
+
 
     /*
     call this when switch turn
@@ -116,7 +212,13 @@ public class MainGame {
                 make units of this player actionable
                 turn count++
      */
-    public static void switchTurn(){}
+    public void switchTurn(){
+        if (whoseTurn == 0) {
+            this.whoseTurn++;
+        } else {
+            this.whoseTurn--;
+        }
+    }
 
     // not sure how to do these yet:
     //cancelMove();

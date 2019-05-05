@@ -8,7 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Board {
-    HashMap<String, Terrain> map;
+    int rowSize = 0;
+    int columnSize = 0;
+    HashMap<String, Terrain> map = new HashMap<>();
     ArrayList<Unit> units;
 
     public Board(String mapName) {
@@ -43,8 +45,85 @@ public class Board {
                     break;
             }
             map.put(entry.getKey(), out);
+            if (getRow(entry.getKey()) - 64 > this.rowSize)
+                this.rowSize = getRow(entry.getKey()) - 64;
+            if (getColunm(entry.getKey()) > this.columnSize)
+                this.columnSize = getColunm(entry.getKey());
         }
     }
 
+    public static Character getRow(String position) {
+        return position.charAt(0);
+    }
+
+    public static int getColunm(String position) {
+        return Integer.parseInt(position.substring(1));
+    }
+
+    public String moveUp(String position) {
+        char row = getRow(position);
+        int column = getColunm(position);
+        if (row > 65)
+            row-=1;
+        return "" + row + column;
+    }
+
+    public String moveDown(String position) {
+        char row = getRow(position);
+        int column = getColunm(position);
+        if ((row - 64) < this.rowSize)
+            row+=1;
+        return "" + row + column;
+    }
+
+    public String moveLeft(String position) {
+        char row = getRow(position);
+        int column = getColunm(position);
+        if (column > 0)
+            column--;
+        return "" + row + column;
+    }
+
+    public String moveRight(String position) {
+        char row = getRow(position);
+        int column = getColunm(position);
+        if (column < this.columnSize)
+            column++;
+        return "" + row + column;
+    }
+
+    public static int distance(String pos, String des) {
+        char rowp = getRow(pos);
+        int columnp = getColunm(pos);
+        char rowd = getRow(des);
+        int columnd = getColunm(des);
+
+        int dr = Math.abs(rowp - rowd);
+        int dc = Math.abs(columnp - columnd);
+
+        return dr + dc;
+
+    }
+
+    public ArrayList<String> neighbors(String startPos) {
+        ArrayList<String> out = new ArrayList<>();
+
+        if (!startPos.equals(moveUp(startPos)))
+            out.add(moveUp(startPos));
+        if (!startPos.equals(moveDown(startPos)) && !out.contains(moveDown(startPos)))
+            out.add(moveDown(startPos));
+        if (!startPos.equals(moveLeft(startPos)) && !out.contains(moveLeft(startPos)))
+            out.add(moveLeft(startPos));
+        if (!startPos.equals(moveRight(startPos)) && !out.contains(moveRight(startPos)))
+            out.add(moveRight(startPos));
+        return out;
+    }
+
+    public static void main(String[] args) {
+        Board x = new Board("map1");
+        System.out.println(x.rowSize + " " + x.columnSize);
+        System.out.println(distance("B3", "A0"));
+        System.out.println(distance("A2", "A0"));
+    }
 
 }
