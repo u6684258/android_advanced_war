@@ -145,16 +145,30 @@ public class MainGame {
     public static void move(Unit unit, String des, Board currentBoard){
         if (!isLegalMove(unit, des, currentBoard))
             return;
+        String pos = unit.getPosition();
         unit.takeMove(des);
+        currentBoard.map.get(pos).leavePosition();
+        currentBoard.map.get(des).takePosition(unit);
     }
 
     /*
-    given a unit and the map with terrain, calculate all reachable enemies the unit can attack.
+    given a unit and the map with terrain, calculate all reachable enemies' position the unit can attack.
     tips: unit has a variable recording its current position. Terrains record the unit on it as well.
           change arrayList to board, if you need to access arrayList of all units as well.
      */
-    public static ArrayList<String> getAttackRange(Unit unit, HashMap<String, Terrain> map, ArrayList<Unit> allUnits) {
-        return null;
+    public static ArrayList<String> getAttackRange(Unit unit, Board board) {
+        double movePointTemp = unit.getMovePoint();
+        Player owner = unit.getOwner();
+        unit.setMovePoint(movePointTemp + unit.getAttackRange());
+        ArrayList<String> range = getMovementRange(unit, board);
+        for (String pos : range) {
+           if (!board.map.get(pos).isOccupied())
+               range.remove(pos);
+           else if (board.map.get(pos).getUnitHere().getOwner() == owner)
+               range.remove(pos);
+        }
+        unit.setMovePoint(movePointTemp);
+        return range;
     }
 
     /*
