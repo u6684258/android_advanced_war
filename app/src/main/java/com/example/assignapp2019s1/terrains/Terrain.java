@@ -9,6 +9,7 @@ public abstract class Terrain {
     double movementCost;
     Unit unitHere;
 
+
     public void takePosition(Unit unit) {
         if (!isOccupied) {
             this.unitHere = unit;
@@ -23,11 +24,12 @@ public abstract class Terrain {
             isOccupied = !isOccupied;
         }
     }
+
 }
 
 enum TerrainType {
     Grass,//draft: movement cost1
-    Mountain,//mc:2
+    Mountain,//3
     Road,//0.5
     Forest,//1.5
     Water,//infantry 2, tank infinity
