@@ -2,6 +2,7 @@ package com.example.assignapp2019s1;
 
 
 import com.example.assignapp2019s1.terrains.Terrain;
+import com.example.assignapp2019s1.terrains.TerrainType;
 import com.example.assignapp2019s1.units.Infantry;
 import com.example.assignapp2019s1.units.Unit;
 
@@ -106,10 +107,14 @@ public class MainGame {
 
     public static void main(String[] args) {
         MainGame game = new MainGame();
-        game.current = new Board("map1");
+        game.current = new Board("map2");
         Unit a = new Infantry(game.player1, "C3");
+        Unit b = new Infantry(game.player2, "A3");
+        game.current.map.get("A3").takePosition(b);
         a.setMovePoint(3);
         System.out.println(getMovementRange(a, game.current));
+        System.out.println(getAttackRange(a, game.current));
+
     }
     /*
     given a unit and a destination and the map with terrain, check if the move is legal.
@@ -124,8 +129,8 @@ public class MainGame {
         boolean outcome = true;
         if (currentBoard.map.get(des).isOccupied())
             outcome = false;
-//        if (map.get(des).getTerrainType() == TerrainType.Water)
-//            outcome = false;
+        if (currentBoard.map.get(des).getTerrainType() == TerrainType.Water)
+            outcome = false;
         if (!getMovementRange(unit, currentBoard).contains(des))
             outcome = false;
         if (!unit.isCan_move()) {
@@ -159,16 +164,30 @@ public class MainGame {
     public static ArrayList<String> getAttackRange(Unit unit, Board board) {
         double movePointTemp = unit.getMovePoint();
         Player owner = unit.getOwner();
-        unit.setMovePoint(movePointTemp + unit.getAttackRange());
-        ArrayList<String> range = getMovementRange(unit, board);
+        int attackRange = unit.getAttackRange();
+        ArrayList<String> range = MainGame.getMovementRange(unit, board);
+        ArrayList<String> outcome = new ArrayList<>();
+        outcome.addAll(range);
+        ArrayList<String> toadd = new ArrayList<>();
         for (String pos : range) {
-           if (!board.map.get(pos).isOccupied())
-               range.remove(pos);
-           else if (board.map.get(pos).getUnitHere().getOwner() == owner)
-               range.remove(pos);
+            ArrayList<String> shootable = board.neighborsInRange(pos, attackRange);
+            for (String x : shootable) {
+                if (!outcome.contains(x) && !toadd.contains(x)) {
+                    toadd.add(x);
+                }
+            }
         }
-        unit.setMovePoint(movePointTemp);
-        return range;
+        outcome.addAll(toadd);
+        outcome.remove(unit.getPosition());
+        ArrayList<String> toremove = new ArrayList<>();
+        for (String pos : outcome) {
+           if (!board.map.get(pos).isOccupied())
+               toremove.add(pos);
+           else if (board.map.get(pos).getUnitHere().getOwner() == owner)
+               toremove.add(pos);
+        }
+        outcome.removeAll(toremove);
+        return outcome;
     }
 
     /*

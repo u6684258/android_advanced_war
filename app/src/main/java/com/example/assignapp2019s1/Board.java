@@ -50,6 +50,7 @@ public class Board {
             if (getColunm(entry.getKey()) > this.columnSize)
                 this.columnSize = getColunm(entry.getKey());
         }
+        this.columnSize++;
     }
 
     public static Character getRow(String position) {
@@ -119,11 +120,29 @@ public class Board {
         return out;
     }
 
+    public ArrayList<String> neighborsInRange(String startPos, int range) {
+        ArrayList<String> outcome = new ArrayList<>();
+        outcome.add(startPos);
+        while (range > 0) {
+            ArrayList<String> toadd = new ArrayList<>();
+            for (String pos : outcome) {
+                for (String nei : neighbors(pos)) {
+                    if (!outcome.contains(nei) && !toadd.contains(nei))
+                        toadd.add(nei);
+                }
+            }
+            outcome.addAll(toadd);
+            range--;
+        }
+        outcome.remove(startPos);
+        return outcome;
+    }
+
     public static void main(String[] args) {
-        Board x = new Board("map1");
+        Board x = new Board("map2");
         System.out.println(x.rowSize + " " + x.columnSize);
         System.out.println(distance("B3", "A0"));
-        System.out.println(distance("A2", "A0"));
+        System.out.println(x.neighborsInRange("C3",1));
     }
 
 }
