@@ -8,7 +8,7 @@ public abstract class Unit {
     Player owner;
 
     //HP of the unit
-    int hitpoints;
+    double hitpoints;
     int ammo;
     int fuel;
     int attackRange;
@@ -17,6 +17,26 @@ public abstract class Unit {
     // see design document for explain
     double damageRating;
     double defenseRating;
+    double totaldamageRating;
+    double totaldefenserating;
+
+    public double getTotaldamageRating() {
+        return totaldamageRating;
+    }
+
+    public void setTotaldamageRating(double totaldamageRating) {
+        this.totaldamageRating = totaldamageRating;
+    }
+
+    public double getTotaldefenserating() {
+        return totaldefenserating;
+    }
+
+    public void setTotaldefenserating(double totaldefenserating) {
+        this.totaldefenserating = totaldefenserating;
+    }
+
+
 
     // see design document for explain
     boolean Has_ImmediateAttack;
@@ -36,11 +56,11 @@ public abstract class Unit {
         this.owner = owner;
     }
 
-    public int getHitpoints() {
+    public double getHitpoints() {
         return hitpoints;
     }
 
-    public void setHitpoints(int hitpoints) {
+    public void setHitpoints(double hitpoints) {
         this.hitpoints = hitpoints;
     }
 

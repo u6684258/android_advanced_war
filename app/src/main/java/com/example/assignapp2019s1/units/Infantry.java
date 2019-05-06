@@ -18,6 +18,8 @@ public class Infantry extends Unit {
         this.attackRange = 1;
         this.damageRating = 10;
         this.defenseRating = 5;
+        this.totaldamageRating = hitpoints * damageRating;
+        this.totaldefenserating = hitpoints * defenseRating;
 
         this.Has_ImmediateAttack = true;
         this.Has_DirectCounterAttack = true;

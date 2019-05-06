@@ -208,8 +208,26 @@ public class MainGame {
              set whatever configures changed for units beside hp, use takeFire() in Unit.
              if unit destroyed, remove it from arraylist of all units
      */
-    public static void attack(Unit attacker, Unit beAttacked, Board board){
+    public static void attack(Unit attacker, Unit defender, Board board) {
+        double damageDealt = 0;
 
+        if (attacker.getTotaldamageRating() < defender.getTotaldefenserating()) {
+            damageDealt = 0;
+        } else {
+            damageDealt = ((attacker.getTotaldamageRating() - defender.getTotaldefenserating()) / 10) * board.map.get(defender.getPosition()).getDefenceRating();
+            defender.setHitpoints(defender.getHitpoints() - damageDealt);
+        }
+
+
+        if (defender.isHas_DirectCounterAttack()) {
+            if (defender.getTotaldamageRating() < attacker.getTotaldefenserating()) {
+                damageDealt = 0;
+            } else {
+                damageDealt = ((defender.getTotaldamageRating() - attacker.getTotaldefenserating()) / 10) * board.map.get(defender.getPosition()).getDefenceRating();
+                attacker.setHitpoints(defender.getHitpoints() - damageDealt);
+            }
+
+        }
     }
 
     /*
@@ -225,7 +243,9 @@ public class MainGame {
     Make sure the unit cannot take any other actions after this.
      */
     public static void capture(Unit unit, Terrain city){
-    }
+
+        }
+
 
     /*
     check game over
