@@ -226,8 +226,13 @@ public class MainGame {
                 damageDealt = ((defender.getTotaldamageRating() - attacker.getTotaldefenserating()) / 10) * board.map.get(defender.getPosition()).getDefenceRating();
                 attacker.setHitpoints(defender.getHitpoints() - damageDealt);
             }
-
         }
+
+        if(defender.getHitpoints() <= 0){
+            //remove unit function
+        }
+
+
     }
 
     /*

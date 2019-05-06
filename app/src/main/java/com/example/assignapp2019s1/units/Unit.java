@@ -12,6 +12,16 @@ public abstract class Unit {
     int ammo;
     int fuel;
     int attackRange;
+
+    public int getRangeDeadZone() {
+        return rangeDeadZone;
+    }
+
+    public void setRangeDeadZone(int rangeDeadZone) {
+        this.rangeDeadZone = rangeDeadZone;
+    }
+
+    int rangeDeadZone;
     double mobility;
     double movePoint;
     // see design document for explain
