@@ -257,7 +257,7 @@ public class MainGame {
     Make sure the unit cannot take any other actions after this.
      */
     public static void capture(Unit unit, City city){
-        unit = city.getUnitHere();
+
         Double unitHP = Math.ceil(unit.getHitpoints());
         if(unit.isCan_capture()){
             city.setCapturescore(city.getCapturescore() - unitHP.intValue() );
