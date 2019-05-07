@@ -2,25 +2,24 @@ package com.example.assignapp2019s1.units;
 
 import com.example.assignapp2019s1.Player;
 
-public class Tank extends Unit {
-
-    public Tank(Player owner, String position){
+public class MediumTank extends Unit {
+    public MediumTank(Player owner, String position){
         this.unitType = UnitType.tank;
         this.unitSubType = UnitSubType.Land;
         this.owner = owner;
         this.position = position;
-        this.unitCost = 7000;
+        this.unitCost = 16000;
 
         this.hitpoints = 10;
         this.maxhitpoints = 10;
-        this.ammo = 10;
-        this.fuel = 70;
+        this.ammo = 8;
+        this.fuel = 50;
         this.mobility = 10;
         this.attackRange = 1;
         this.visionscore = 2;
-        this.damageRating = 12.5;
+        this.damageRating = 17.5;
         this.totaldamageRating = hitpoints * damageRating;
-        this.defenseRating = 9.5;
+        this.defenseRating = 13.5;
         this.totaldefenserating = hitpoints * defenseRating;
 
 
