@@ -4,6 +4,7 @@ package com.example.assignapp2019s1;
 import com.example.assignapp2019s1.terrains.City;
 import com.example.assignapp2019s1.terrains.Terrain;
 import com.example.assignapp2019s1.terrains.TerrainType;
+import com.example.assignapp2019s1.terrains.WorkShop;
 import com.example.assignapp2019s1.units.Infantry;
 import com.example.assignapp2019s1.units.Unit;
 
@@ -229,10 +230,14 @@ public class MainGame {
             } else {
                 damageDealt = ((defender.getTotaldamageRating() - attacker.getTotaldefenserating()) / 10) * board.map.get(defender.getPosition()).getDefenceRating();
                 attacker.setHitpoints(defender.getHitpoints() - damageDealt);
+                if(attacker.getHitpoints() <= 0){
+                    board.units.remove(attacker);
+                }
             }
         }
         if(defender.getHitpoints() <= 0){
             //remove unit function
+            board.units.remove(defender);
         }
 
         _wait(attacker);
@@ -296,6 +301,55 @@ public class MainGame {
             }
             city.getOwner().spendMoney(moneyspent.intValue());
 
+
+        }
+    }
+
+//Default method for workshops to deploy units - unit selected will be deployed on top of workshop and money subtracted.
+    public static void deployUnit(Unit unit, Board board, Player player, WorkShop workShop){
+        Double unitcost = unit.getUnitCost();
+        board.units.add(unit);
+        unit.setOwner(player);
+
+        workShop.setUnitHere(unit);
+
+        player.spendMoney(unitcost.intValue());
+
+
+    }
+
+
+//Method used to create a unit of any player anywhere on the map. Most likely will be used for debugging/testing.
+    public static void summonUnit(Unit unit, Board board, Player player, String position){
+
+        board.units.add(unit);
+        unit.setPosition(position);
+        unit.setOwner(player);
+
+
+
+    }
+
+/*
+Two units of the same type are able to reinforce each other as long as the unit being reinforced(selected unit)
+has less than max hp. The reinforcing unit will be removed from the board after this.
+If the reinforcement would go over the max hp, the player is refunded the unit cost
+proportional to the amount of hp that was wasted.
+ */
+
+    public static void reinforce(Unit selectedUnit, Unit reinforcements, Board board){
+        Double HPDiff = (Math.abs(selectedUnit.getHitpoints() - reinforcements.getHitpoints()));
+        Double moneyRefund = Math.floor(selectedUnit.getUnitCost() * HPDiff/10);
+
+        if(selectedUnit.getHitpoints() < selectedUnit.getMaxhitpoints() && selectedUnit.getUnitType() == reinforcements.getUnitType()){
+            selectedUnit.setHitpoints(selectedUnit.getHitpoints() + reinforcements.getHitpoints());
+
+            if(selectedUnit.getHitpoints() > selectedUnit.getMaxhitpoints()){
+                selectedUnit.setHitpoints(selectedUnit.getMaxhitpoints());
+                selectedUnit.getOwner().setMoney(selectedUnit.getOwner().getMoney() + moneyRefund.intValue());
+            }
+
+            board.units.remove(reinforcements);
 
         }
 

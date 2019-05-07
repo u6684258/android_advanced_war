@@ -8,7 +8,7 @@ public class MediumTank extends Unit {
         this.unitSubType = UnitSubType.Land;
         this.owner = owner;
         this.position = position;
-        this.unitCost = 16000;
+        this.unitCost = 12000;
 
         this.hitpoints = 10;
         this.maxhitpoints = 10;
@@ -16,7 +16,7 @@ public class MediumTank extends Unit {
         this.fuel = 50;
         this.mobility = 10;
         this.attackRange = 1;
-        this.visionscore = 2;
+        this.visionscore = 1;
         this.damageRating = 17.5;
         this.totaldamageRating = hitpoints * damageRating;
         this.defenseRating = 13.5;
