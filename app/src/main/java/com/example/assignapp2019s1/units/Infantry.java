@@ -12,6 +12,7 @@ public class Infantry extends Unit {
         this.position = position;
 
         this.hitpoints = 10;
+        this.maxhitpoints = 10;
         this.ammo = 10;
         this.fuel = 999;
         this.mobility = 6;
@@ -25,5 +26,6 @@ public class Infantry extends Unit {
         this.Has_DirectCounterAttack = true;
         this.can_fire = false;
         this.can_move = false;
+        this.Can_capture = true;
     }
 }

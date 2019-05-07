@@ -11,8 +11,9 @@ public class Tank extends Unit {
         this.position = position;
 
         this.hitpoints = 10;
-        this.ammo = 30;
-        this.fuel = 60;
+        this.maxhitpoints = 10;
+        this.ammo = 25;
+        this.fuel = 70;
         this.mobility = 10;
         this.attackRange = 1;
         this.damageRating = 12.5;

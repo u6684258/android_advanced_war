@@ -5,8 +5,8 @@ public class Forest extends Terrain {
     public Forest(){
         this.terrainType = TerrainType.Forest;
         this.isOccupied = false;
-        this.defenceRating = 1.5;
-        this.movementCost = 1.5;
+        this.defenceRating = 0.8;
+        this.movementCost = 2;
 
     }
 }

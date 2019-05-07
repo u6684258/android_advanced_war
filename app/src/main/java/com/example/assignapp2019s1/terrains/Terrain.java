@@ -7,6 +7,8 @@ public abstract class Terrain {
     boolean isOccupied = false;
     double defenceRating;
     double movementCost;
+
+
     Unit unitHere;
 
     public TerrainType getTerrainType() {

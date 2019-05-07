@@ -3,12 +3,20 @@ package com.example.assignapp2019s1.units;
 import com.example.assignapp2019s1.Player;
 
 public abstract class Unit {
+    public UnitType getUnitType() {
+        return unitType;
+    }
+
     UnitType unitType;
     UnitSubType unitSubType;
     Player owner;
 
     //HP of the unit
     double hitpoints;
+
+
+
+    double maxhitpoints;
     int ammo;
     int fuel;
     int attackRange;
@@ -46,11 +54,28 @@ public abstract class Unit {
         this.totaldefenserating = totaldefenserating;
     }
 
+    public double getMaxhitpoints() {
+        return maxhitpoints;
+    }
+
+    public void setMaxhitpoints(double maxhitpoints) {
+        this.maxhitpoints = maxhitpoints;
+    }
 
 
     // see design document for explain
     boolean Has_ImmediateAttack;
     boolean Has_DirectCounterAttack;
+
+    public boolean isCan_capture() {
+        return Can_capture;
+    }
+
+    public void setCan_capture(boolean can_capture) {
+        Can_capture = can_capture;
+    }
+
+    boolean Can_capture;
     //can the unit move?
     boolean can_fire = false;
     // can the unit fire?

@@ -7,8 +7,8 @@ public class Grass extends Terrain {
     public Grass(){
         this.terrainType = TerrainType.Grass;
         this.isOccupied = false;
-        this.defenceRating = 1;
-        this.movementCost = 1.5;
+        this.defenceRating = 0.9;
+        this.movementCost = 1;
     }
 
 

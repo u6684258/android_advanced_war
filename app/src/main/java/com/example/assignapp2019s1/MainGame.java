@@ -1,10 +1,12 @@
 package com.example.assignapp2019s1;
 
 
+import com.example.assignapp2019s1.terrains.City;
 import com.example.assignapp2019s1.terrains.Terrain;
 import com.example.assignapp2019s1.terrains.TerrainType;
 import com.example.assignapp2019s1.units.Infantry;
 import com.example.assignapp2019s1.units.Unit;
+
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -193,9 +195,12 @@ public class MainGame {
     /*
     calculate damage, formula in design document
      */
-    public static int getDamage(Unit attacker, Unit beAttacked, HashMap<String, Terrain> map) {
-        double defenceRate = map.get(beAttacked.getPosition()).getDefenceRating();
-        return -1;
+    public static double getDamage(Unit attacker, Unit defender, HashMap<String, Terrain> map) {
+        double damageDealt = 0;
+        double damagePercentage = 0;
+        damageDealt = ((attacker.getTotaldamageRating() - defender.getTotaldefenserating()) / 10) * map.get(defender.getPosition()).getDefenceRating();
+        damagePercentage = Math.floor(damageDealt/attacker.getMaxhitpoints() * 100);
+        return damagePercentage;
     }
 
     /*
@@ -216,9 +221,8 @@ public class MainGame {
         } else {
             damageDealt = ((attacker.getTotaldamageRating() - defender.getTotaldefenserating()) / 10) * board.map.get(defender.getPosition()).getDefenceRating();
             defender.setHitpoints(defender.getHitpoints() - damageDealt);
+
         }
-
-
         if (defender.isHas_DirectCounterAttack()) {
             if (defender.getTotaldamageRating() < attacker.getTotaldefenserating()) {
                 damageDealt = 0;
@@ -227,10 +231,15 @@ public class MainGame {
                 attacker.setHitpoints(defender.getHitpoints() - damageDealt);
             }
         }
-
         if(defender.getHitpoints() <= 0){
             //remove unit function
         }
+
+        _wait(attacker);
+
+
+
+
 
 
     }
@@ -247,7 +256,21 @@ public class MainGame {
     capture the city with the unit. decrease captureScore of the city, formula in design document
     Make sure the unit cannot take any other actions after this.
      */
-    public static void capture(Unit unit, Terrain city){
+    public static void capture(Unit unit, City city){
+        unit = city.getUnitHere();
+        Double unitHP = Math.ceil(unit.getHitpoints());
+        if(unit.isCan_capture()){
+            city.setCapturescore(city.getCapturescore() - unitHP.intValue() );
+            if (city.getCapturescore() <= 0){
+                city.setOwner(unit.getOwner());
+            }
+        }
+        _wait(unit);
+
+        if(!city.getUnitHere().isCan_capture() || city.getUnitHere() == null){
+            city.setCapturescore(city.getMaxcapturescore());
+
+        }
 
         }
 
