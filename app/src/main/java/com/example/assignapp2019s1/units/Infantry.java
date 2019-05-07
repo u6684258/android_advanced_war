@@ -10,12 +10,15 @@ public class Infantry extends Unit {
         this.unitSubType = UnitSubType.Infantry;
         this.owner = owner;
         this.position = position;
+        this.unitCost = 1000;
 
         this.hitpoints = 10;
         this.maxhitpoints = 10;
         this.ammo = 10;
         this.fuel = 999;
         this.mobility = 6;
+        this.visionscore = 2;
+
         this.attackRange = 1;
         this.damageRating = 10;
         this.defenseRating = 5;

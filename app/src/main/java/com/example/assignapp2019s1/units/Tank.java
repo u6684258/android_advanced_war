@@ -9,6 +9,7 @@ public class Tank extends Unit {
         this.unitSubType = UnitSubType.Land;
         this.owner = owner;
         this.position = position;
+        this.unitCost = 7000;
 
         this.hitpoints = 10;
         this.maxhitpoints = 10;
@@ -16,10 +17,12 @@ public class Tank extends Unit {
         this.fuel = 70;
         this.mobility = 10;
         this.attackRange = 1;
+        this.visionscore = 2;
         this.damageRating = 12.5;
         this.totaldamageRating = hitpoints * damageRating;
         this.defenseRating = 9.5;
         this.totaldefenserating = hitpoints * defenseRating;
+
 
         this.Has_ImmediateAttack = true;
         this.Has_DirectCounterAttack = true;

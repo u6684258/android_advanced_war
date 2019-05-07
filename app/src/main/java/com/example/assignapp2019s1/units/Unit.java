@@ -18,7 +18,46 @@ public abstract class Unit {
 
     double maxhitpoints;
     int ammo;
+    int maxammo;
     int fuel;
+
+    public int getVisionscore() {
+        return visionscore;
+    }
+
+    public void setVisionscore(int visionscore) {
+        this.visionscore = visionscore;
+    }
+
+    int visionscore;
+
+    public double getUnitCost() {
+        return unitCost;
+    }
+
+    public void setUnitCost(double unitCost) {
+        this.unitCost = unitCost;
+    }
+
+    double unitCost;
+
+    public int getMaxammo() {
+        return maxammo;
+    }
+
+    public void setMaxammo(int maxammo) {
+        this.maxammo = maxammo;
+    }
+
+    public int getMaxfuel() {
+        return maxfuel;
+    }
+
+    public void setMaxfuel(int maxfuel) {
+        this.maxfuel = maxfuel;
+    }
+
+    int maxfuel;
     int attackRange;
 
     public int getRangeDeadZone() {

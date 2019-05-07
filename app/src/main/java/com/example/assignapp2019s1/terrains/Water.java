@@ -7,7 +7,7 @@ public class Water extends Terrain {
     public Water() {
         this.terrainType = TerrainType.Water;
         this.isOccupied = false;
-        this.defenceRating = 1.2;
-        this.movementCost = 2;
+        this.defenceRating = 1;
+        this.movementCost = 1;
     }
 }

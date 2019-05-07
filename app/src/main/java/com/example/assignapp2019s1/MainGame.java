@@ -272,7 +272,38 @@ public class MainGame {
 
         }
 
+    }
+
+    /*If a unit is on friendly territory they will resupply for max ammo and fuel in addition to
+    healing 2 hitpoints. The player will then spend 10% of the unit cost for every unit that was
+    resupplied. Later implementation of aircraft means that ordinary cities cannot refuel aircraft,
+    only airports can.
+     */
+    public static void resupply(City city){
+        Double moneyspent = Math.floor(city.getUnitHere().getUnitCost()*0.1);
+
+        if(city.getOwner() == city.getUnitHere().getOwner()){
+            city.getUnitHere().setAmmo(city.getUnitHere().getMaxammo());
+            city.getUnitHere().setFuel(city.getUnitHere().getMaxfuel());
+
+            if(city.getUnitHere().getHitpoints() < city.getUnitHere().getMaxhitpoints()){
+                city.getUnitHere().setHitpoints(city.getUnitHere().getHitpoints() + 2);
+
+                if(city.getUnitHere().getHitpoints()>= city.getUnitHere().getMaxhitpoints()){
+                    city.getUnitHere().setHitpoints(city.getUnitHere().getMaxhitpoints());
+                }
+
+            }
+            city.getOwner().spendMoney(moneyspent.intValue());
+
+
         }
+
+
+    }
+
+
+
 
 
     /*
