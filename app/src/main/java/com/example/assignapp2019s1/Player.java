@@ -1,6 +1,10 @@
 package com.example.assignapp2019s1;
 
 public class Player {
+    public String getHqAddress() {
+        return hqAddress;
+    }
+
     String hqAddress;
 
     public int getMoney() {

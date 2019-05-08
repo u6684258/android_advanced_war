@@ -7,5 +7,6 @@ public enum TerrainType {
     Forest,//1.5
     Water,//infantry 2, tank infinity
     City, //1
-    Workshop//1
+    Workshop,//1
+    HeadQuarters
 }

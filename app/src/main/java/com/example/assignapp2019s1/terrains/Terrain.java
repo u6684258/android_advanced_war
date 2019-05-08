@@ -9,6 +9,25 @@ public abstract class Terrain {
     double movementCost;
 
 
+    public City getBuildings() {
+        return buildings;
+    }
+
+    public void setBuildings(City buildings) {
+        this.buildings = buildings;
+    }
+
+    City buildings;
+
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
+    }
+
+    Terrain terrain;
     Unit unitHere;
 
     public TerrainType getTerrainType() {

@@ -364,8 +364,8 @@ proportional to the amount of hp that was wasted.
     check game over
      */
     public boolean checkGameOver() {
-        if (current.map.get(player1.hqAddress).getUnitHere().getOwner()==player2 ||
-                current.map.get(player2.hqAddress).getUnitHere().getOwner()==player1)
+        if (current.map.get(player1.hqAddress).getBuildings().getOwner()==player2 ||
+                current.map.get(player2.hqAddress).getBuildings().getOwner()==player1)
             return true;
         else return false;
     }

@@ -7,6 +7,16 @@ public class City extends Terrain {
     Player Owner;
     int capturescore;
 
+    public int getIncomeGain() {
+        return incomeGain;
+    }
+
+    public void setIncomeGain(int incomeGain) {
+        this.incomeGain = incomeGain;
+    }
+
+    int incomeGain;
+
     public int getMaxcapturescore() {
         return maxcapturescore;
     }
@@ -41,6 +51,7 @@ public class City extends Terrain {
         this.Owner = null;
         this.capturescore = 20;
         this.maxcapturescore = 20;
+        this.incomeGain = 1000;
 
     }
 }
