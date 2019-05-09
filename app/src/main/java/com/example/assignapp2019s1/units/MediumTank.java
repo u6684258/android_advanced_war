@@ -4,7 +4,7 @@ import com.example.assignapp2019s1.Player;
 
 public class MediumTank extends Unit {
     public MediumTank(Player owner, String position){
-        this.unitType = UnitType.tank;
+        this.unitType = UnitType.MdTank;
         this.unitSubType = UnitSubType.Land;
         this.owner = owner;
         this.position = position;

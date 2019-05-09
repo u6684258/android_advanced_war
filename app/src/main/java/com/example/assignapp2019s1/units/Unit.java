@@ -238,6 +238,7 @@ enum UnitType {
     infantry,
     recon,
     tank,
-    artillery
+    artillery,
+    MdTank
 }
 

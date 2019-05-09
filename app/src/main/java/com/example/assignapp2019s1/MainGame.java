@@ -310,24 +310,16 @@ public class MainGame {
         Double unitcost = unit.getUnitCost();
         board.units.add(unit);
         unit.setOwner(player);
-
         workShop.setUnitHere(unit);
-
         player.spendMoney(unitcost.intValue());
-
-
     }
 
 
 //Method used to create a unit of any player anywhere on the map. Most likely will be used for debugging/testing.
     public static void summonUnit(Unit unit, Board board, Player player, String position){
-
         board.units.add(unit);
         unit.setPosition(position);
         unit.setOwner(player);
-
-
-
     }
 
 /*
@@ -355,8 +347,6 @@ proportional to the amount of hp that was wasted.
 
 
     }
-
-
 
 
 
