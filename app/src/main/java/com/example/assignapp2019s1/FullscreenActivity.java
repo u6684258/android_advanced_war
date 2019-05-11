@@ -1,6 +1,7 @@
 package com.example.assignapp2019s1;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,10 @@ public class FullscreenActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_fullscreen);
 
+    }
+    public void pressStart(View v){
+        Intent intent = new Intent(this, MapChoosing.class);
+        startActivity(intent);
     }
 
 
