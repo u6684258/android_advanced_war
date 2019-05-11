@@ -139,11 +139,12 @@ public class Board {
         return outcome;
     }
 
-    public static void main(String[] args) {
-        Board x = new Board("map2");
-        System.out.println(x.rowSize + " " + x.columnSize);
-        System.out.println(distance("B3", "A0"));
-        System.out.println(x.neighborsInRange("C3",1));
+    public static int[] calculatePos(String pos) {
+        int row = pos.charAt(0) - 65;
+        int col = Integer.parseInt(pos.substring(1));
+        int[] outcome = {row, col};
+        return outcome;
     }
+
 
 }
