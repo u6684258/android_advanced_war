@@ -1,6 +1,7 @@
 package com.example.assignapp2019s1;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -124,6 +125,11 @@ public class FullscreenActivity extends AppCompatActivity {
         } else {
             show();
         }
+    }
+
+    public void onPress(View v) {
+        Intent intent = new Intent(this, Game.class);
+        startActivity(intent);
     }
 
     private void hide() {

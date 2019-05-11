@@ -14,6 +14,7 @@ public class Board {
     ArrayList<Unit> units;
 
     public Board(String mapName) {
+        units = new ArrayList<>();
         HashMap<String, String> mapTemp = MapMaker.load(MapMaker.PATH + mapName + ".xml").getMap();
         for (Map.Entry<String, String> entry: mapTemp.entrySet()) {
             String ter = entry.getValue();

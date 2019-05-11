@@ -24,11 +24,12 @@ public class MainGame {
     boolean gameStart = false;
 
     //initialise
-    public MainGame() {
+    public MainGame(String map) {
         this.player1 = new Player();
         this.player2 = new Player();
         this.moves = new HashMap();
         this.gameStart = true;
+        this.current = new Board(map);
     }
 
     /*
@@ -109,8 +110,7 @@ public class MainGame {
     }
 
     public static void main(String[] args) {
-        MainGame game = new MainGame();
-        game.current = new Board("map2");
+        MainGame game = new MainGame("map2");
         Unit a = new Infantry(game.player1, "C3");
         Unit b = new Infantry(game.player2, "A3");
         game.current.map.get("A3").takePosition(b);
