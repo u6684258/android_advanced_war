@@ -32,6 +32,14 @@ public class MainGame {
         this.current = new Board(map);
     }
 
+    public MainGame(HashMap<String, String> map) {
+        this.player1 = new Player();
+        this.player2 = new Player();
+        this.moves = new HashMap();
+        this.gameStart = true;
+        this.current = new Board(map);
+    }
+
     /*
     given a player, and an arrayList of all units, find out all units of this player.
     Some tips: there is an arrayList storing all units for current game in Board. therfore, after
@@ -109,16 +117,6 @@ public class MainGame {
         return false;
     }
 
-    public static void main(String[] args) {
-        MainGame game = new MainGame("map2");
-        Unit a = new Infantry(game.player1, "C3");
-        Unit b = new Infantry(game.player2, "A3");
-        game.current.map.get("A3").takePosition(b);
-        a.setMovePoint(3);
-        System.out.println(getMovementRange(a, game.current));
-        System.out.println(getAttackRange(a, game.current));
-
-    }
     /*
     given a unit and a destination and the map with terrain, check if the move is legal.
     illegal: des already been taken by some unit;

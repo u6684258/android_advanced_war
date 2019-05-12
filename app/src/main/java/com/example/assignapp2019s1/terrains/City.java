@@ -1,6 +1,7 @@
 package com.example.assignapp2019s1.terrains;
 
 import com.example.assignapp2019s1.Player;
+import com.example.assignapp2019s1.R;
 
 public class City extends Terrain {
 
@@ -52,6 +53,6 @@ public class City extends Terrain {
         this.capturescore = 20;
         this.maxcapturescore = 20;
         this.incomeGain = 1000;
-
+        this.pic = R.drawable.city_red;
     }
 }
