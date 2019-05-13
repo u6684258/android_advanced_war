@@ -11,13 +11,9 @@
         android:id="@+id/imageButton2"
         android:layout_width="181dp"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-=======
+
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
->>>>>>> df56bdff1a3d06b379ac88f5d1e9586097f2016e
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="312dp"
         android:layout_marginRight="312dp"
