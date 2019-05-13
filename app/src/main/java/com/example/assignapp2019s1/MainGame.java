@@ -5,14 +5,10 @@ import com.example.assignapp2019s1.terrains.City;
 import com.example.assignapp2019s1.terrains.Terrain;
 import com.example.assignapp2019s1.terrains.TerrainType;
 import com.example.assignapp2019s1.terrains.WorkShop;
-import com.example.assignapp2019s1.units.Infantry;
 import com.example.assignapp2019s1.units.Unit;
 
-
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class MainGame {
     Board current;
@@ -379,5 +375,8 @@ proportional to the amount of hp that was wasted.
     //calculateScore();
     //these will be in gui:
     //showPossibleActions();
+    public static void main(String[] args) {
+        MainGame game = new MainGame("map2");
+    }
 
 }

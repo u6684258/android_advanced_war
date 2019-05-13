@@ -26,25 +26,25 @@ public class Game extends AppCompatActivity {
         mapView.showMap(extra.getString("Map"));
     }
 
-    public void button_left(View v){
+    public void button_up(View v){
         MapView mapView = findViewById(R.id.mapView2);
         mapView.cursor = mapView.game.current.moveLeft(mapView.cursor);
         buttonClickHandler();
         mapView.invalidate();
     }
-    public void button_right(View v){
+    public void button_down(View v){
         MapView mapView = findViewById(R.id.mapView2);
         mapView.cursor = mapView.game.current.moveRight(mapView.cursor);
         buttonClickHandler();
         mapView.invalidate();
     }
-    public void button_up(View v){
+    public void button_left(View v){
         MapView mapView = findViewById(R.id.mapView2);
         mapView.cursor = mapView.game.current.moveUp(mapView.cursor);
         buttonClickHandler();
         mapView.invalidate();
     }
-    public void button_down(View v){
+    public void button_right(View v){
         MapView mapView = findViewById(R.id.mapView2);
         mapView.cursor = mapView.game.current.moveDown(mapView.cursor);
         buttonClickHandler();
