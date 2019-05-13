@@ -3,6 +3,8 @@ package com.example.assignapp2019s1;
 import com.example.assignapp2019s1.maps.MapMaker;
 import com.example.assignapp2019s1.terrains.*;
 import com.example.assignapp2019s1.units.Unit;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,6 +70,18 @@ public class Board {
             row-=1;
         return "" + row + column;
     }
+
+    public ArrayList getAllCities(Player player){
+        ArrayList<String> allCities = new ArrayList<>();
+        for(Map.Entry<String, Terrain> entry: map.entrySet()){
+            if(entry.getValue().getTerrainType() == TerrainType.City){
+                allCities.add(entry.getKey());
+            }
+        }
+        return allCities;
+    }
+
+
 
     public String moveDown(String position) {
         char row = getRow(position);

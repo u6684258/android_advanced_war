@@ -20,7 +20,7 @@ public class MainGame {
     Player player2;
     HashMap moves;
     int turnCount = 0;
-    int whoseTurn = 0;
+    int whoseTurn = 1;
     boolean gameStart = false;
 
     //initialise
@@ -368,12 +368,16 @@ proportional to the amount of hp that was wasted.
                 make units of this player actionable
                 turn count++
      */
-    public void switchTurn(){
-        if (whoseTurn == 0) {
+    public void switchTurn(Board board){
+        if (whoseTurn == 1) {
+            board.getAllCities(player1);
             this.whoseTurn++;
+
+
         } else {
             this.whoseTurn--;
         }
+
     }
 
     // not sure how to do these yet:
