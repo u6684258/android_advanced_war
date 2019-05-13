@@ -19,6 +19,7 @@ import java.util.Map;
 public class MapView extends View {
 
     MainGame game;
+    String cursor = "";
 
 
     public MapView(Context context, AttributeSet attrs) {
@@ -27,7 +28,21 @@ public class MapView extends View {
 
     public void showMap(String map) {
         HashMap<String, String> m = new HashMap<>();
-        XmlResourceParser assurances = getResources().getXml(R.xml.map2);
+        XmlResourceParser assurances;
+        switch (map) {
+            case "map1":{
+                assurances = getResources().getXml(R.xml.map1);
+                break;
+            }
+            case "map2":{
+                assurances = getResources().getXml(R.xml.map2);
+                break;
+            }
+            default:{
+                assurances = getResources().getXml(R.xml.map2);
+                break;
+            }
+        }
         try {
             String buffer = "";
             int eventType = assurances.getEventType();
@@ -56,13 +71,13 @@ public class MapView extends View {
             }
 //
         game = new MainGame(m);
+        cursor = "A0";
         this.invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-//        System.out.println("here!!!!!!!!!!!!!!!!!!!!!!");
         if (game == null) {
 
         }
@@ -74,6 +89,10 @@ public class MapView extends View {
                 d.setBounds(100 + pos[1]*100,50 + pos[0]*100,200 + pos[1]*100,150 + pos[0]*100);
                 d.draw(canvas);
             }
+            Drawable d = ResourcesCompat.getDrawable(getResources(),R.drawable.cursor, null);
+            int[] pos = Board.calculatePos(cursor);
+            d.setBounds(100 + pos[1]*100,50 + pos[0]*100,200 + pos[1]*100,150 + pos[0]*100);
+            d.draw(canvas);
         }
     }
 

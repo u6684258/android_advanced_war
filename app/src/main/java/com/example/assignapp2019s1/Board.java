@@ -139,7 +139,7 @@ public class Board {
     public String moveRight(String position) {
         char row = getRow(position);
         int column = getColunm(position);
-        if (column < this.columnSize)
+        if (column < this.columnSize-1)
             column++;
         return "" + row + column;
     }
