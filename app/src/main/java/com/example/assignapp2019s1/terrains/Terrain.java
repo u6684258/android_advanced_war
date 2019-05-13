@@ -19,15 +19,15 @@ public abstract class Terrain {
 
     City buildings;
 
-    public Terrain getTerrain() {
-        return terrain;
-    }
-
-    public void setTerrain(Terrain terrain) {
-        this.terrain = terrain;
-    }
-
-    Terrain terrain;
+//    public Terrain getTerrain() {
+//        return terrain;
+//    }
+//
+//    public void setTerrain(Terrain terrain) {
+//        this.terrain = terrain;
+//    }
+//
+//    Terrain terrain;
     Unit unitHere;
 
     public TerrainType getTerrainType() {
@@ -84,5 +84,7 @@ public abstract class Terrain {
             isOccupied = !isOccupied;
         }
     }
+
+    public int pic;
 }
 

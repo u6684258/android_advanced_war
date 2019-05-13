@@ -1,10 +1,18 @@
 package com.example.assignapp2019s1;
 
 import com.example.assignapp2019s1.maps.MapMaker;
-import com.example.assignapp2019s1.terrains.*;
+import com.example.assignapp2019s1.terrains.City;
+import com.example.assignapp2019s1.terrains.Forest;
+import com.example.assignapp2019s1.terrains.Grass;
+import com.example.assignapp2019s1.terrains.Mountain;
+import com.example.assignapp2019s1.terrains.Road;
+import com.example.assignapp2019s1.terrains.Terrain;
+import com.example.assignapp2019s1.terrains.TerrainType;
+import com.example.assignapp2019s1.terrains.Water;
+import com.example.assignapp2019s1.terrains.WorkShop;
 import com.example.assignapp2019s1.units.Unit;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +24,7 @@ public class Board {
     ArrayList<Unit> units;
 
     public Board(String mapName) {
+        units = new ArrayList<>();
         HashMap<String, String> mapTemp = MapMaker.load(MapMaker.PATH + mapName + ".xml").getMap();
         for (Map.Entry<String, String> entry: mapTemp.entrySet()) {
             String ter = entry.getValue();
@@ -54,6 +63,48 @@ public class Board {
         }
         this.columnSize++;
     }
+
+    public Board(HashMap<String, String> map) {
+        units = new ArrayList<>();
+        HashMap<String, String> mapTemp = map;
+        for (Map.Entry<String, String> entry: mapTemp.entrySet()) {
+            String ter = entry.getValue();
+            Terrain out;
+            switch (ter){
+                case "Grass":
+                    out = new Grass();
+                    break;
+                case "Mountain":
+                    out = new Mountain();
+                    break;
+                case "Road":
+                    out = new Road();
+                    break;
+                case "Forest":
+                    out = new Forest();
+                    break;
+                case "Water":
+                    out = new Water();
+                    break;
+                case "City":
+                    out = new City();
+                    break;
+                case "Workshop":
+                    out = new WorkShop();
+                    break;
+                default:
+                    out = new Grass();
+                    break;
+            }
+            this.map.put(entry.getKey(), out);
+            if (getRow(entry.getKey()) - 64 > this.rowSize)
+                this.rowSize = getRow(entry.getKey()) - 64;
+            if (getColunm(entry.getKey()) > this.columnSize)
+                this.columnSize = getColunm(entry.getKey());
+        }
+        this.columnSize++;
+    }
+
 
     public static Character getRow(String position) {
         return position.charAt(0);
@@ -102,7 +153,7 @@ public class Board {
     public String moveRight(String position) {
         char row = getRow(position);
         int column = getColunm(position);
-        if (column < this.columnSize)
+        if (column < this.columnSize-1)
             column++;
         return "" + row + column;
     }
@@ -152,11 +203,21 @@ public class Board {
         return outcome;
     }
 
-    public static void main(String[] args) {
-        Board x = new Board("map2");
-        System.out.println(x.rowSize + " " + x.columnSize);
-        System.out.println(distance("B3", "A0"));
-        System.out.println(x.neighborsInRange("C3",1));
+    public static int[] calculatePos(String pos) {
+        int row = pos.charAt(0) - 65;
+        int col = Integer.parseInt(pos.substring(1));
+        int[] outcome = {row, col};
+        return outcome;
     }
+
+    public static String calculateCur(int[] pos) {
+        char row = (char) (pos[0] + 65);
+        return "" + row + pos[1];
+    }
+
+    public static void main(String[] args) {
+        Board x  = new Board("map2");
+    }
+
 
 }

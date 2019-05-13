@@ -1,6 +1,7 @@
 package com.example.assignapp2019s1.terrains;
 
 import com.example.assignapp2019s1.Player;
+import com.example.assignapp2019s1.R;
 
 public class HeadQuarters extends City {
     public String getPosition() {
@@ -22,7 +23,7 @@ public class HeadQuarters extends City {
         this.capturescore = 20;
         this.maxcapturescore = 20;
         this.incomeGain = 2000;
-
+        this.pic = R.drawable.hq_red;
 
 
     }

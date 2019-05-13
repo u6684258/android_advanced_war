@@ -1,5 +1,10 @@
 package com.example.assignapp2019s1.maps;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,16 +16,12 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 public class MapMaker {
     private static final String MAP = "map";
     private static final String POS = "pos";
     private static final String TYPE = "type";
-    public static final String PATH = "app/src/main/java/com/example/assignapp2019s1/maps/";
+    public static final String PATH = "src/main/res/xml/";
     HashMap<String, String> map = new HashMap<>();
 
     public MapMaker(HashMap map) {

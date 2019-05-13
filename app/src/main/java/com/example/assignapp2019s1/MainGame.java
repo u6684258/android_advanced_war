@@ -5,14 +5,10 @@ import com.example.assignapp2019s1.terrains.City;
 import com.example.assignapp2019s1.terrains.Terrain;
 import com.example.assignapp2019s1.terrains.TerrainType;
 import com.example.assignapp2019s1.terrains.WorkShop;
-import com.example.assignapp2019s1.units.Infantry;
 import com.example.assignapp2019s1.units.Unit;
 
-
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class MainGame {
     Board current;
@@ -24,11 +20,20 @@ public class MainGame {
     boolean gameStart = false;
 
     //initialise
-    public MainGame() {
+    public MainGame(String map) {
         this.player1 = new Player();
         this.player2 = new Player();
         this.moves = new HashMap();
         this.gameStart = true;
+        this.current = new Board(map);
+    }
+
+    public MainGame(HashMap<String, String> map) {
+        this.player1 = new Player();
+        this.player2 = new Player();
+        this.moves = new HashMap();
+        this.gameStart = true;
+        this.current = new Board(map);
     }
 
     /*
@@ -108,17 +113,6 @@ public class MainGame {
         return false;
     }
 
-    public static void main(String[] args) {
-        MainGame game = new MainGame();
-        game.current = new Board("map2");
-        Unit a = new Infantry(game.player1, "C3");
-        Unit b = new Infantry(game.player2, "A3");
-        game.current.map.get("A3").takePosition(b);
-        a.setMovePoint(3);
-        System.out.println(getMovementRange(a, game.current));
-        System.out.println(getAttackRange(a, game.current));
-
-    }
     /*
     given a unit and a destination and the map with terrain, check if the move is legal.
     illegal: des already been taken by some unit;
@@ -385,5 +379,8 @@ proportional to the amount of hp that was wasted.
     //calculateScore();
     //these will be in gui:
     //showPossibleActions();
+    public static void main(String[] args) {
+        MainGame game = new MainGame("map2");
+    }
 
 }
