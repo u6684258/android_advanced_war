@@ -5,6 +5,9 @@ import com.example.assignapp2019s1.terrains.City;
 import com.example.assignapp2019s1.terrains.Terrain;
 import com.example.assignapp2019s1.terrains.TerrainType;
 import com.example.assignapp2019s1.terrains.WorkShop;
+import com.example.assignapp2019s1.units.Infantry;
+import com.example.assignapp2019s1.units.MediumTank;
+import com.example.assignapp2019s1.units.Tank;
 import com.example.assignapp2019s1.units.Unit;
 
 import java.util.ArrayList;
@@ -211,18 +214,19 @@ public class MainGame {
     public static void attack(Unit attacker, Unit defender, Board board) {
         double damageDealt = 0;
 
-        if (attacker.getTotaldamageRating() < defender.getTotaldefenserating()) {
+        if (attacker.getDamageRating() * attacker.getHitpoints() < defender.getDefenseRating() * defender.getHitpoints()) {
             damageDealt = 0;
         } else {
-            damageDealt = ((attacker.getTotaldamageRating() - defender.getTotaldefenserating()) / 10) * board.map.get(defender.getPosition()).getDefenceRating();
+            damageDealt = ((attacker.getDamageRating() * attacker.getHitpoints() - defender.getDefenseRating() * defender.getHitpoints()) / 10)
+                    * board.map.get(defender.getPosition()).getDefenceRating();
             defender.setHitpoints(defender.getHitpoints() - damageDealt);
 
         }
         if (defender.isHas_DirectCounterAttack()) {
-            if (defender.getTotaldamageRating() < attacker.getTotaldefenserating()) {
+            if (defender.getDamageRating() * defender.getHitpoints() < attacker.getDefenseRating() * attacker.getHitpoints()) {
                 damageDealt = 0;
             } else {
-                damageDealt = ((defender.getTotaldamageRating() - attacker.getTotaldefenserating()) / 10) * board.map.get(defender.getPosition()).getDefenceRating();
+                damageDealt = ((defender.getDamageRating() * defender.getHitpoints() - attacker.getDefenseRating() * attacker.getHitpoints()) / 10) * board.map.get(attacker.getPosition()).getDefenceRating();
                 attacker.setHitpoints(defender.getHitpoints() - damageDealt);
                 if(attacker.getHitpoints() <= 0){
                     board.units.remove(attacker);
@@ -317,7 +321,7 @@ public class MainGame {
 //Method used to create a unit of any player anywhere on the map. Most likely will be used for debugging/testing.
     public static void summonUnit(Unit unit, Board board, Player player, String position){
         board.units.add(unit);
-        unit.setPosition(position);
+        board.map.get(position).setUnitHere(unit);
         unit.setOwner(player);
     }
 
@@ -416,6 +420,58 @@ proportional to the amount of hp that was wasted.
     //showPossibleActions();
     public static void main(String[] args) {
         MainGame game = new MainGame("map2");
+        Player player1 = new Player();
+        Player player2 = new Player();
+        Board board = new Board("map2");
+        Tank tank = new Tank(player1, "A1");
+        Infantry infantry = new Infantry(player2, "A2");
+        MediumTank mediumTank = new MediumTank(player2,"A3");
+        board.units.add(mediumTank);
+        board.units.add(tank);
+        summonUnit(tank, board, player1, "A1");
+        board.units.add(infantry);
+        summonUnit(infantry, board, player2, "A2");
+        summonUnit(mediumTank, board, player2, "A3");
+        System.out.println("player 1 tank HP:" + board.map.get("A1").getUnitHere().getHitpoints());
+        System.out.println("player 1 tank DMG Rating:" + board.map.get("A1").getUnitHere().getTotaldamageRating());
+        System.out.println("Player 1 tank terrain bonus:" + board.map.get("A1").getDefenceRating());
+        System.out.println("player 2 infantry HP:" + board.map.get("A2").getUnitHere().getHitpoints());
+        System.out.println("player 2 infantry DMG Rating:" + board.map.get("A2").getUnitHere().getTotaldamageRating());
+        System.out.println("Player 2 infantry terrain bonus:" + board.map.get("A2").getDefenceRating());
+
+        attack(board.map.get("A1").getUnitHere(), board.map.get("A2").getUnitHere(), board);
+
+        System.out.println("Tank attacks infantry");
+        System.out.println("player 1 tank HP:" + board.map.get("A1").getUnitHere().getHitpoints());
+        System.out.println("player 1 tank DMG Rating:" + board.map.get("A1").getUnitHere().getDamageRating() *
+                board.map.get("A1").getUnitHere().getHitpoints());
+        System.out.println("player 2 infantry HP:" + board.map.get("A2").getUnitHere().getHitpoints());
+        System.out.println("player 2 infantry DMG Rating:" + board.map.get("A2").getUnitHere().getDamageRating() *
+                board.map.get("A2").getUnitHere().getHitpoints());
+
+        tank.setHitpoints(10);
+        System.out.println("player 1 tank HP:" + board.map.get("A1").getUnitHere().getHitpoints());
+
+        System.out.println("player 2 MDtank HP:" + board.map.get("A3").getUnitHere().getHitpoints());
+        System.out.println("player 2 MDtank DMG Rating:" + board.map.get("A3").getUnitHere().getTotaldamageRating());
+        System.out.println("Player 2 MDtank terrain bonus:" + board.map.get("A3").getDefenceRating());
+
+        attack(board.map.get("A1").getUnitHere(), board.map.get("A3").getUnitHere(), board);
+        System.out.println("Player 1 tank attacks Player 2 MdTank - MDTank should take minimal damage and Tank should suffer heavy counterattack damage");
+        System.out.println("player 2 MDtank HP:" + board.map.get("A3").getUnitHere().getHitpoints());
+        System.out.println("player 2 MDtank DMG Rating:" + board.map.get("A3").getUnitHere().getDamageRating() *
+                board.map.get("A3").getUnitHere().getHitpoints());
+
+        System.out.println("player 1 tank HP:" + board.map.get("A1").getUnitHere().getHitpoints());
+        System.out.println("player 1 tank DMG Rating:" + board.map.get("A1").getUnitHere().getDamageRating() *
+                board.map.get("A1").getUnitHere().getHitpoints());
+
+
+
+
+
+
     }
+
 
 }

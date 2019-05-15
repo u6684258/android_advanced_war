@@ -14,7 +14,7 @@
 
     <com.example.assignapp2019s1.MapView
         android:id="@+id/mapView2"
-        android:layout_width="731"
+        android:layout_width="731dp"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
@@ -31,17 +31,18 @@
 
     <Button
         android:id="@+id/Left"
-        android:layout_width="60"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="645dp"
-        android:layout_marginRight="645dp"
-        android:layout_marginBottom="61dp"
+        android:layout_marginEnd="642dp"
+        android:layout_marginRight="642dp"
+        android:layout_marginBottom="65dp"
         android:alpha="0.5"
         android:onClick="button_left"
-        android:text="<-" />
+        android:text="Left"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/right"
@@ -55,11 +56,11 @@
         android:layout_marginBottom="59dp"
         android:alpha="0.5"
         android:onClick="button_right"
-        android:text="->" />
+        android:text="Right" />
 
     <Button
         android:id="@+id/up"
-        android:layout_width="60"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
@@ -69,11 +70,11 @@
         android:layout_marginBottom="122dp"
         android:alpha="0.5"
         android:onClick="button_up"
-        android:text="^" />
+        android:text="Up" />
 
     <Button
         android:id="@+id/down"
-        android:layout_width="60"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
@@ -83,11 +84,11 @@
         android:layout_marginBottom="6dp"
         android:alpha="0.5"
         android:onClick="button_down"
-        android:text="V" />
+        android:text="Down" />
 
     <Button
         android:id="@+id/button_A"
-        android:layout_width="60"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
@@ -100,7 +101,7 @@
 
     <Button
         android:id="@+id/button_B"
-        android:layout_width="60"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"

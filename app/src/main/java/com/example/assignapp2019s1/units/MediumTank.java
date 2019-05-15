@@ -17,9 +17,9 @@ public class MediumTank extends Unit {
         this.mobility = 10;
         this.attackRange = 1;
         this.visionscore = 1;
-        this.damageRating = 17.5;
+        this.damageRating = 18;
         this.totaldamageRating = hitpoints * damageRating;
-        this.defenseRating = 13.5;
+        this.defenseRating = 11;
         this.totaldefenserating = hitpoints * defenseRating;
 
 

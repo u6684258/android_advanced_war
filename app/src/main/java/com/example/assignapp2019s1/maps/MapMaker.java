@@ -21,7 +21,7 @@ public class MapMaker {
     private static final String MAP = "map";
     private static final String POS = "pos";
     private static final String TYPE = "type";
-    public static final String PATH = "src/main/res/xml/";
+    public static final String PATH = "app/src/main/res/xml/";
     HashMap<String, String> map = new HashMap<>();
 
     public MapMaker(HashMap map) {
