@@ -19,7 +19,8 @@ public class Player {
 
     int income;
 
-    public Player() {}
+    public Player() {
+    }
     public void setBase(String pos) {
          this.hqAddress = pos;
     }

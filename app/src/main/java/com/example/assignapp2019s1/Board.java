@@ -122,14 +122,26 @@ public class Board {
         return "" + row + column;
     }
 
-    public ArrayList getAllCities(Player player){
+    public ArrayList<String> getAllCities(Player player){
         ArrayList<String> allCities = new ArrayList<>();
         for(Map.Entry<String, Terrain> entry: map.entrySet()){
-            if(entry.getValue().getTerrainType() == TerrainType.City){
+            if(entry.getValue().getTerrainType() == TerrainType.City && entry.getValue().getBuildings().getOwner() == player){
                 allCities.add(entry.getKey());
             }
         }
         return allCities;
+    }
+
+    public ArrayList<String> getAllUnits(Player player){
+        ArrayList<String> allUnits = new ArrayList<>();
+        for(Map.Entry<String, Terrain> entry : map.entrySet()){
+         if (entry.getValue().getUnitHere().getOwner() == player){
+             allUnits.add(entry.getKey());
+         }
+
+        }
+        return allUnits;
+
     }
 
 

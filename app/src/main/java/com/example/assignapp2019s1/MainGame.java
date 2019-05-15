@@ -251,6 +251,11 @@ public class MainGame {
         unit.setCan_fire(false);
     }
 
+    public static void _activate(Unit unit){
+        unit.setCan_fire(true);
+        unit.setCan_move(true);
+    }
+
     /*
     capture the city with the unit. decrease captureScore of the city, formula in design document
     Make sure the unit cannot take any other actions after this.
@@ -354,6 +359,10 @@ proportional to the amount of hp that was wasted.
         else return false;
     }
 
+    public void updateIncome(Player player, Board board){
+        player.income = 2000 + (1000 * board.getAllCities(player).size());
+    }
+
 
     /*
     call this when switch turn
@@ -364,12 +373,38 @@ proportional to the amount of hp that was wasted.
      */
     public void switchTurn(Board board){
         if (whoseTurn == 1) {
-            board.getAllCities(player1);
+            for(String s : board.getAllCities(player1)){
+                resupply(board.map.get(s).getBuildings());
+            }
+            for(String s : board.getAllUnits(player1)){
+                _wait(board.map.get(s).getUnitHere());
+            }
             this.whoseTurn++;
+            this.turnCount++;
+            updateIncome(player1, board);
+            updateIncome(player2, board);
+            player2.addMoney();
+            for(String s : board.getAllUnits(player2)){
+                _activate(board.map.get(s).getUnitHere());
+            }
 
 
         } else {
+            for(String s : board.getAllCities(player2)){
+                resupply(board.map.get(s).getBuildings());
+            }
+            for(String s : board.getAllUnits(player2)){
+                _wait(board.map.get(s).getUnitHere());
+            }
+
             this.whoseTurn--;
+            this.turnCount++;
+            updateIncome(player2, board);
+            updateIncome(player1, board);
+            player1.addMoney();
+            for(String s : board.getAllUnits(player1)){
+                _activate(board.map.get(s).getUnitHere());
+            }
         }
 
     }
