@@ -67,6 +67,7 @@ public abstract class Terrain {
     }
 
     public void setUnitHere(Unit unitHere) {
+        this.isOccupied = true;
         this.unitHere = unitHere;
     }
 

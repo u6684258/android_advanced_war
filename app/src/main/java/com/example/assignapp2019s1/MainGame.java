@@ -34,6 +34,8 @@ public class MainGame {
         this.moves = new HashMap();
         this.gameStart = true;
         this.current = new Board(map);
+        player1.setMoney(2000);
+        player2.setMoney(2000);
     }
 
     /*
@@ -302,6 +304,7 @@ public class MainGame {
 //Default method for workshops to deploy units - unit selected will be deployed on top of workshop and money subtracted.
     public static void deployUnit(Unit unit, Board board, Player player, WorkShop workShop){
         Double unitcost = unit.getUnitCost();
+        unit.pic = R.drawable.infantry;
         board.units.add(unit);
         unit.setOwner(player);
         workShop.setUnitHere(unit);

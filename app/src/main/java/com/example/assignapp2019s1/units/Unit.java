@@ -14,7 +14,7 @@ public abstract class Unit {
     //HP of the unit
     double hitpoints;
 
-
+    public int pic = 0;
 
     double maxhitpoints;
     int ammo;
