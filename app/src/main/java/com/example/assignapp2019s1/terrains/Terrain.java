@@ -87,5 +87,6 @@ public abstract class Terrain {
     }
 
     public int pic;
+    public int alpha = 255;
 }
 

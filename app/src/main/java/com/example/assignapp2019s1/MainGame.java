@@ -146,13 +146,14 @@ public class MainGame {
              add unit to new position(use takePosition() in Terrain)
     tips: change hashmap to board, if you need to access arrayList of all units as well.
      */
-    public static void move(Unit unit, String des, Board currentBoard){
+    public static boolean move(Unit unit, String des, Board currentBoard){
         if (!isLegalMove(unit, des, currentBoard))
-            return;
+            return false;
         String pos = unit.getPosition();
         unit.takeMove(des);
         currentBoard.map.get(pos).leavePosition();
         currentBoard.map.get(des).takePosition(unit);
+        return true;
     }
 
     /*

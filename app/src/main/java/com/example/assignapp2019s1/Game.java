@@ -102,6 +102,7 @@ public class Game extends AppCompatActivity {
             b.setVisibility(View.VISIBLE);
             b = findViewById(R.id.below);
             b.setVisibility(View.VISIBLE);
+            b.performClick();
             b = findViewById(R.id.up);
             b.setVisibility(View.GONE);
             b = findViewById(R.id.down);
@@ -111,6 +112,7 @@ public class Game extends AppCompatActivity {
             b = findViewById(R.id.right);
             b.setVisibility(View.GONE);
         }
+        // TODO: 2019-05-17 change player
         else if (cursorLevel == 1) {
             Unit x;
             switch (unit_cursor) {
@@ -139,6 +141,20 @@ public class Game extends AppCompatActivity {
             b.performClick();
         }
 
+        else if (cursorLevel == 0 && t.isOccupied() && t.getUnitHere().isCan_move()) {
+            cursorLevel = 2;
+            mapView.showMoveRange(t.getUnitHere());
+            mapView.invalidate();
+        }
+
+        else if (cursorLevel == 2){
+            if (MainGame.move(mapView.selected, cursor, mapView.game.current)) {
+                mapView.finishShowMoveRange();
+                cursorLevel = 0;
+                mapView.invalidate();
+            }
+        }
+
     }
     public void button_B(View v){
         MapView mapView = findViewById(R.id.mapView2);
@@ -162,6 +178,11 @@ public class Game extends AppCompatActivity {
             b.setVisibility(View.VISIBLE);
             b = findViewById(R.id.right);
             b.setVisibility(View.VISIBLE);
+        }
+        else if (cursorLevel == 2) {
+            cursorLevel = 0;
+            mapView.finishShowMoveRange();
+            mapView.invalidate();
         }
     }
 
@@ -188,6 +209,13 @@ public class Game extends AppCompatActivity {
         cur.setBackgroundColor(Color.parseColor("#555555"));
     }
 
+    public void Button_end_turn(View v) {
+        MapView mapView = findViewById(R.id.mapView2);
+        //todo: make sure this is right
+        mapView.game.switchTurn();
+        mapView.invalidate();
+    }
+
 
     public void buttonClickHandler() {
 
@@ -204,7 +232,8 @@ public class Game extends AppCompatActivity {
         }
         if (mapView.game.current.map.get(mapView.cursor).getUnitHere() != null) {
             Unit u = mapView.game.current.map.get(mapView.cursor).getUnitHere();
-            t += "unit: " + u.getUnitType();
+            t += "unit: " + u.getUnitType() + " movable:" + u.isCan_move() + " mobility:" +
+                    u.getMobility() + " attack range:" + u.getAttackRange();
         }
         textView.setText(t);
         textView.setBackgroundColor(Color.parseColor("#bdbdbd"));
