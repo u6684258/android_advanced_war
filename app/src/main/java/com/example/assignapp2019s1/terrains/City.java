@@ -28,6 +28,14 @@ public class City extends Terrain {
 
     int maxcapturescore;
 
+    public void leavePosition() {
+        if (isOccupied) {
+            this.unitHere = null;
+            isOccupied = !isOccupied;
+            this.setCapturescore(maxcapturescore);
+        }
+    }
+
 
     public Player getOwner() {
         return Owner;

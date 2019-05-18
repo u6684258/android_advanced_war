@@ -13,6 +13,6 @@ public class WorkShop extends City {
         this.Owner = null;
         this.capturescore = 20;
         this.maxcapturescore = 20;
-        this.pic = R.drawable.workshop_red;
+//        this.pic = R.drawable.workshop_red;
     }
 }
