@@ -116,27 +116,28 @@ public class Game extends AppCompatActivity {
         // TODO: 2019-05-17 change player
         else if (cursorLevel == 1) {
             Unit x;
+            Player cur = mapView.game.whoseTurn == 1?mapView.game.player1:mapView.game.player2;
             switch (unit_cursor) {
                 case 0:
-                    x = new Infantry(mapView.game.player1, cursor);
+                    x = new Infantry(cur, cursor);
                     break;
                 case 1:
-                    x = new Tank(mapView.game.player1, cursor);
+                    x = new Tank(cur, cursor);
                     break;
                 case 2:
-                    x = new MediumTank(mapView.game.player1, cursor);
+                    x = new MediumTank(cur, cursor);
                     break;
                 case 3:
-                    x = new Recon(mapView.game.player1, cursor);
+                    x = new Recon(cur, cursor);
                     break;
                 case 4:
-                    x = new Artillery(mapView.game.player1, cursor);
+                    x = new Artillery(cur, cursor);
                     break;
                 default:
-                    x = new Infantry(mapView.game.player1, cursor);
+                    x = new Infantry(cur, cursor);
                     break;
             }
-            MainGame.deployUnit(x, mapView.game.player1, (WorkShop) mapView.game.current.map.get(cursor));
+            MainGame.deployUnit(x, cur, (WorkShop) mapView.game.current.map.get(cursor));
             mapView.invalidate();
             Button b = findViewById(R.id.button_B);
             b.performClick();
@@ -249,7 +250,7 @@ public class Game extends AppCompatActivity {
         if (mapView.game.current.map.get(mapView.cursor).getUnitHere() != null) {
             Unit u = mapView.game.current.map.get(mapView.cursor).getUnitHere();
             t += "unit: " + u.getUnitType() + " HP:" + u.getHitpoints()+ " movable:" + u.isCan_move() + " mobility:" +
-                    u.getMobility() + " attack range:" + u.getAttackRange();
+                    u.getMovePoint() + " attack range:" + u.getAttackRange();
         }
         textView.setText(t);
         textView.setBackgroundColor(Color.parseColor("#bdbdbd"));

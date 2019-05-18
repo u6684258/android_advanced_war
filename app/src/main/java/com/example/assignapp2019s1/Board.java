@@ -178,7 +178,7 @@ public class Board {
     public ArrayList<String> getAllUnits(Player player){
         ArrayList<String> allUnits = new ArrayList<>();
         for(Map.Entry<String, Terrain> entry : map.entrySet()){
-         if (entry.getValue().getUnitHere().getOwner() == player){
+         if (entry.getValue().isOccupied() && entry.getValue().getUnitHere().getOwner() == player){
              allUnits.add(entry.getKey());
          }
 
