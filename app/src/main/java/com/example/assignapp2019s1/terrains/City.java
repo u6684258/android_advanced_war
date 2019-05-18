@@ -28,6 +28,14 @@ public class City extends Terrain {
 
     int maxcapturescore;
 
+    public void leavePosition() {
+        if (isOccupied) {
+            this.unitHere = null;
+            isOccupied = !isOccupied;
+            this.setCapturescore(maxcapturescore);
+        }
+    }
+
 
     public Player getOwner() {
         return Owner;
@@ -53,6 +61,7 @@ public class City extends Terrain {
         this.capturescore = 20;
         this.maxcapturescore = 20;
         this.incomeGain = 1000;
-        this.pic = R.drawable.city_red;
+        this.pic = R.drawable.city_neutral;
+        this.buildings = this;
     }
 }

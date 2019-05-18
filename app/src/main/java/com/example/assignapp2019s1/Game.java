@@ -136,7 +136,7 @@ public class Game extends AppCompatActivity {
                     x = new Infantry(mapView.game.player1, cursor);
                     break;
             }
-            MainGame.deployUnit(x, mapView.game.current, mapView.game.player1, (WorkShop) mapView.game.current.map.get(cursor));
+            MainGame.deployUnit(x, mapView.game.player1, (WorkShop) mapView.game.current.map.get(cursor));
             mapView.invalidate();
             Button b = findViewById(R.id.button_B);
             b.performClick();

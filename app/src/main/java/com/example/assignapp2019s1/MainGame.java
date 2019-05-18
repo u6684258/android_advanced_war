@@ -2,6 +2,7 @@ package com.example.assignapp2019s1;
 
 
 import com.example.assignapp2019s1.terrains.City;
+import com.example.assignapp2019s1.terrains.HeadQuarters;
 import com.example.assignapp2019s1.terrains.Terrain;
 import com.example.assignapp2019s1.terrains.TerrainType;
 import com.example.assignapp2019s1.terrains.WorkShop;
@@ -16,6 +17,8 @@ import java.util.HashMap;
 public class MainGame {
     Board current;
     Player player1;
+    HeadQuarters player1HQ;
+    HeadQuarters player2HQ;
     Player player2;
     HashMap moves;
     int turnCount = 0;
@@ -36,12 +39,21 @@ public class MainGame {
 
     public MainGame(HashMap<String, String> map) {
         this.player1 = new Player();
+        player1.id = 1;
+        this.player1HQ = new HeadQuarters();
         this.player2 = new Player();
+        player2.id = 2;
+        this.player2HQ = new HeadQuarters();
         this.moves = new HashMap();
         this.gameStart = true;
         this.current = new Board(map, player1, player2);
-        player1.setMoney(2000);
-        player2.setMoney(2000);
+        player1.setMoney(2000 + (current.getAllCities(player1).size() * 1000));
+        player2.setMoney(2000 + (current.getAllCities(player1).size() * 1000));
+
+
+
+
+
     }
 
     /*
@@ -271,16 +283,21 @@ public class MainGame {
             city.setCapturescore(city.getCapturescore() - unitHP.intValue() );
             if (city.getCapturescore() <= 0){
                 city.setOwner(unit.getOwner());
+                if (city.getOwner().id == 1){
+                    city.pic = R.drawable.city_red;
+                }else {
+                    city.pic = R.drawable.city_blue;
+                }
             }
         }
         _wait(unit);
 
         if(!city.getUnitHere().isCan_capture() || city.getUnitHere() == null){
             city.setCapturescore(city.getMaxcapturescore());
-
         }
-
     }
+
+
 
     /*If a unit is on friendly territory they will resupply for max ammo and fuel in addition to
     healing 2 hitpoints. The player will then spend 10% of the unit cost for every unit that was
@@ -296,33 +313,48 @@ public class MainGame {
 
             if(city.getUnitHere().getHitpoints() < city.getUnitHere().getMaxhitpoints()){
                 city.getUnitHere().setHitpoints(city.getUnitHere().getHitpoints() + 2);
+                city.getOwner().spendMoney(moneyspent.intValue());
 
                 if(city.getUnitHere().getHitpoints()>= city.getUnitHere().getMaxhitpoints()){
                     city.getUnitHere().setHitpoints(city.getUnitHere().getMaxhitpoints());
                 }
 
             }
-            city.getOwner().spendMoney(moneyspent.intValue());
+
 
 
         }
     }
 
 //Default method for workshops to deploy units - unit selected will be deployed on top of workshop and money subtracted.
-    public static void deployUnit(Unit unit, Board board, Player player, WorkShop workShop){
+    public static void deployUnit(Unit unit, Player player, WorkShop workShop){
         Double unitcost = unit.getUnitCost();
-        unit.pic = R.drawable.infantry;
-        board.units.add(unit);
-        unit.setOwner(player);
-        workShop.setUnitHere(unit);
+        if (player.id == 1){
+            unit.pic = R.drawable.infantry_red;
+            unit.setOwner(player);
+            workShop.setUnitHere(unit);
+        }
+
+        if (player.id == 2){
+            unit.pic = R.drawable.infantry_blue;
+            unit.setOwner(player);
+            workShop.setUnitHere(unit);
+        }
+
+
         player.spendMoney(unitcost.intValue());
     }
 
 
 //Method used to create a unit of any player anywhere on the map. Most likely will be used for debugging/testing.
     public static void summonUnit(Unit unit, Board board, Player player, String position){
-        board.units.add(unit);
-        unit.pic = R.drawable.infantry;
+        if (player.id == 1){
+            unit.pic = R.drawable.infantry_red;
+        }else{
+            unit.pic = R.drawable.infantry_blue;
+        }
+
+        board.map.get(position).setUnitHere(unit);
         unit.setPosition(position);
         unit.setOwner(player);
     }

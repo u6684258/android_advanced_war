@@ -164,6 +164,17 @@ public class Board {
         return allCities;
     }
 
+    public int getTotalIncome(Player player){
+        ArrayList<String> allCities = getAllCities(player);
+        int income = 0;
+
+        for(int i = 0; i <= allCities.size(); i++){
+            income += map.get(allCities.get(i)).getBuildings().getIncomeGain();
+
+        }
+        return income;
+    }
+
     public ArrayList<String> getAllUnits(Player player){
         ArrayList<String> allUnits = new ArrayList<>();
         for(Map.Entry<String, Terrain> entry : map.entrySet()){

@@ -84,7 +84,7 @@ public class MapView extends View {
         x.setCan_fire(true);
         x.setCan_move(true);
         x.setMovePoint(x.getMobility());
-        MainGame.deployUnit(x, game.current, game.player1, (WorkShop) game.current.map.get("A6"));
+        MainGame.deployUnit(x,  game.player1, (WorkShop) game.current.map.get("A6"));
 
         Infantry y = new Infantry(game.player2, "B5");
         MainGame.summonUnit(y, game.current, game.player2, "B5");
