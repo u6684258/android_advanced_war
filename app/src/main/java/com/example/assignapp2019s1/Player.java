@@ -6,6 +6,7 @@ public class Player {
     }
 
     String hqAddress;
+    int id;
 
     public int getMoney() {
         return money;

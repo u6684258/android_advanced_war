@@ -25,7 +25,9 @@ public class MainGame {
     //initialise
     public MainGame(String map) {
         this.player1 = new Player();
+        player1.id = 1;
         this.player2 = new Player();
+        player2.id = 2;
         this.moves = new HashMap();
         this.gameStart = true;
         this.current = new Board(map);
@@ -37,6 +39,8 @@ public class MainGame {
         this.moves = new HashMap();
         this.gameStart = true;
         this.current = new Board(map);
+        player1.setMoney(2000);
+        player2.setMoney(2000);
     }
 
     /*
@@ -147,13 +151,14 @@ public class MainGame {
              add unit to new position(use takePosition() in Terrain)
     tips: change hashmap to board, if you need to access arrayList of all units as well.
      */
-    public static void move(Unit unit, String des, Board currentBoard){
+    public static boolean move(Unit unit, String des, Board currentBoard){
         if (!isLegalMove(unit, des, currentBoard))
-            return;
+            return false;
         String pos = unit.getPosition();
         unit.takeMove(des);
         currentBoard.map.get(pos).leavePosition();
         currentBoard.map.get(des).takePosition(unit);
+        return true;
     }
 
     /*
@@ -214,19 +219,18 @@ public class MainGame {
     public static void attack(Unit attacker, Unit defender, Board board) {
         double damageDealt = 0;
 
-        if (attacker.getDamageRating() * attacker.getHitpoints() < defender.getDefenseRating() * defender.getHitpoints()) {
+        if (attacker.getTotaldamageRating() < defender.getTotaldefenserating()) {
             damageDealt = 0;
         } else {
-            damageDealt = ((attacker.getDamageRating() * attacker.getHitpoints() - defender.getDefenseRating() * defender.getHitpoints()) / 10)
-                    * board.map.get(defender.getPosition()).getDefenceRating();
+            damageDealt = ((attacker.getTotaldamageRating() - defender.getTotaldefenserating()) / 10) * board.map.get(defender.getPosition()).getDefenceRating();
             defender.setHitpoints(defender.getHitpoints() - damageDealt);
 
         }
         if (defender.isHas_DirectCounterAttack()) {
-            if (defender.getDamageRating() * defender.getHitpoints() < attacker.getDefenseRating() * attacker.getHitpoints()) {
+            if (defender.getTotaldamageRating() < attacker.getTotaldefenserating()) {
                 damageDealt = 0;
             } else {
-                damageDealt = ((defender.getDamageRating() * defender.getHitpoints() - attacker.getDefenseRating() * attacker.getHitpoints()) / 10) * board.map.get(attacker.getPosition()).getDefenceRating();
+                damageDealt = ((defender.getTotaldamageRating() - attacker.getTotaldefenserating()) / 10) * board.map.get(defender.getPosition()).getDefenceRating();
                 attacker.setHitpoints(defender.getHitpoints() - damageDealt);
                 if(attacker.getHitpoints() <= 0){
                     board.units.remove(attacker);
@@ -239,11 +243,6 @@ public class MainGame {
         }
 
         _wait(attacker);
-
-
-
-
-
 
     }
 
@@ -311,6 +310,7 @@ public class MainGame {
 //Default method for workshops to deploy units - unit selected will be deployed on top of workshop and money subtracted.
     public static void deployUnit(Unit unit, Board board, Player player, WorkShop workShop){
         Double unitcost = unit.getUnitCost();
+        unit.pic = R.drawable.infantry;
         board.units.add(unit);
         unit.setOwner(player);
         workShop.setUnitHere(unit);
@@ -321,7 +321,8 @@ public class MainGame {
 //Method used to create a unit of any player anywhere on the map. Most likely will be used for debugging/testing.
     public static void summonUnit(Unit unit, Board board, Player player, String position){
         board.units.add(unit);
-        board.map.get(position).setUnitHere(unit);
+        unit.pic = R.drawable.infantry;
+        unit.setPosition(position);
         unit.setOwner(player);
     }
 
@@ -472,6 +473,5 @@ proportional to the amount of hp that was wasted.
 
 
     }
-
 
 }
