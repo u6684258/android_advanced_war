@@ -270,6 +270,7 @@ public class MainGame {
     public static void _activate(Unit unit){
         unit.setCan_fire(true);
         unit.setCan_move(true);
+        unit.setMovePoint(unit.getMobility());
     }
 
     /*
