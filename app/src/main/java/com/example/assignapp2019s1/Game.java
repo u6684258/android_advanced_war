@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.assignapp2019s1.terrains.City;
 import com.example.assignapp2019s1.terrains.Terrain;
@@ -145,6 +146,7 @@ public class Game extends AppCompatActivity {
             cursorLevel = 2;
             mapView.showMoveRange(t.getUnitHere());
             mapView.invalidate();
+            Toast.makeText(getApplicationContext(), "showing move range", Toast.LENGTH_SHORT).show();
         }
 
         else if (cursorLevel == 2){
@@ -182,6 +184,18 @@ public class Game extends AppCompatActivity {
         else if (cursorLevel == 2) {
             cursorLevel = 0;
             mapView.finishShowMoveRange();
+            mapView.invalidate();
+        }
+
+        else if (cursorLevel == 0 && t.isOccupied() && t.getUnitHere().isCan_fire()) {
+            cursorLevel = 3;
+            mapView.showAttackRange(t.getUnitHere());
+            mapView.invalidate();
+            Toast.makeText(getApplicationContext(), "showing attack range", Toast.LENGTH_SHORT).show();
+        }
+        else if (cursorLevel == 3) {
+            cursorLevel = 0;
+            mapView.finishShowAttackRange();
             mapView.invalidate();
         }
     }

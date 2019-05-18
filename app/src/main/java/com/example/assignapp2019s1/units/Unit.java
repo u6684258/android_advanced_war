@@ -15,6 +15,7 @@ public abstract class Unit {
     double hitpoints;
 
     public int pic = 0;
+    public int alpha = 255;
 
     double maxhitpoints;
     int ammo;

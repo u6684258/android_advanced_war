@@ -6,6 +6,7 @@ public class Player {
     }
 
     String hqAddress;
+    int turnsign;
 
     public int getMoney() {
         return money;

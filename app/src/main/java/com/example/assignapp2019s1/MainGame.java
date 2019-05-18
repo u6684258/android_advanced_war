@@ -22,7 +22,9 @@ public class MainGame {
     //initialise
     public MainGame(String map) {
         this.player1 = new Player();
+        player1.turnsign = 0;
         this.player2 = new Player();
+        player2.turnsign = 1;
         this.moves = new HashMap();
         this.gameStart = true;
         this.current = new Board(map);
@@ -126,15 +128,14 @@ public class MainGame {
      */
     public static boolean isLegalMove(Unit unit, String des, Board currentBoard) {
         boolean outcome = true;
+        if (!unit.isCan_move())
+            outcome = false;
         if (currentBoard.map.get(des).isOccupied())
             outcome = false;
         if (currentBoard.map.get(des).getTerrainType() == TerrainType.Water)
             outcome = false;
         if (!getMovementRange(unit, currentBoard).contains(des))
             outcome = false;
-        if (!unit.isCan_move()) {
-            outcome = false;
-        }
         return outcome;
     }
 
@@ -190,6 +191,7 @@ public class MainGame {
         return outcome;
     }
 
+
     /*
     calculate damage, formula in design document
      */
@@ -238,11 +240,6 @@ public class MainGame {
         }
 
         _wait(attacker);
-
-
-
-
-
 
     }
 
@@ -316,7 +313,9 @@ public class MainGame {
 //Method used to create a unit of any player anywhere on the map. Most likely will be used for debugging/testing.
     public static void summonUnit(Unit unit, Board board, Player player, String position){
         board.units.add(unit);
+        unit.pic = R.drawable.infantry;
         unit.setPosition(position);
+        board.map.get(position).setUnitHere(unit);
         unit.setOwner(player);
     }
 
