@@ -1,7 +1,5 @@
 package com.example.assignapp2019s1.terrains;
 
-import com.example.assignapp2019s1.R;
-
 public class WorkShop extends City {
 
     public WorkShop(){
@@ -13,6 +11,5 @@ public class WorkShop extends City {
         this.Owner = null;
         this.capturescore = 20;
         this.maxcapturescore = 20;
-//        this.pic = R.drawable.workshop_red;
     }
 }
