@@ -46,7 +46,7 @@ public class Game extends AppCompatActivity {
         units.add("Infantry");
         units.add("Tank");
         units.add("Recon");
-        units.add("MEdian tank");
+        units.add("Median tank");
         units.add("Arttilery");
     }
 
@@ -156,6 +156,7 @@ public class Game extends AppCompatActivity {
                 mapView.invalidate();
             }
         }
+        buttonClickHandler();
 
     }
     public void button_B(View v){
@@ -198,6 +199,7 @@ public class Game extends AppCompatActivity {
             mapView.finishShowAttackRange();
             mapView.invalidate();
         }
+        buttonClickHandler();
     }
 
     public void button_above(View v) {
@@ -246,7 +248,7 @@ public class Game extends AppCompatActivity {
         }
         if (mapView.game.current.map.get(mapView.cursor).getUnitHere() != null) {
             Unit u = mapView.game.current.map.get(mapView.cursor).getUnitHere();
-            t += "unit: " + u.getUnitType() + " movable:" + u.isCan_move() + " mobility:" +
+            t += "unit: " + u.getUnitType() + " HP:" + u.getHitpoints()+ " movable:" + u.isCan_move() + " mobility:" +
                     u.getMobility() + " attack range:" + u.getAttackRange();
         }
         textView.setText(t);

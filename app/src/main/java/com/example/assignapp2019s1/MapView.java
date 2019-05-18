@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class MapView extends View {
 
-    private static final int PIECE_SIZE = 100;
+    private static final int PIECE_SIZE = 110;
 
     MainGame game;
     String cursor = "";
@@ -142,21 +142,19 @@ public class MapView extends View {
             for (Map.Entry<String, Terrain> entry : game.current.map.entrySet()) {
                 Drawable d = ResourcesCompat.getDrawable(getResources(),entry.getValue().pic, null);
                 int[] pos = Board.calculatePos(entry.getKey());
-                d.setBounds(100 + pos[0]*PIECE_SIZE,50 + pos[1]*PIECE_SIZE,200 + pos[0]*PIECE_SIZE,150 + pos[1]*PIECE_SIZE);
+                d.setBounds(5 + pos[0]*PIECE_SIZE,30 + pos[1]*PIECE_SIZE,5 + PIECE_SIZE + pos[0]*PIECE_SIZE,30 + PIECE_SIZE + pos[1]*PIECE_SIZE);
                 d.setAlpha(entry.getValue().alpha);
                 d.draw(canvas);
                 if (entry.getValue().getUnitHere() != null) {
                 d = ResourcesCompat.getDrawable(getResources(),entry.getValue().getUnitHere().pic, null);
-                d.setBounds(100 + pos[0]*PIECE_SIZE,50 + pos[1]*PIECE_SIZE,200 + pos[0]*PIECE_SIZE,150 + pos[1]*PIECE_SIZE);
+                d.setBounds(5 + pos[0]*PIECE_SIZE,30 + pos[1]*PIECE_SIZE,5 + PIECE_SIZE + pos[0]*PIECE_SIZE,30 + PIECE_SIZE + pos[1]*PIECE_SIZE);
                 d.setAlpha(entry.getValue().getUnitHere().alpha);
                 d.draw(canvas);}
             }
             Drawable d = ResourcesCompat.getDrawable(getResources(),R.drawable.cursor, null);
             int[] pos = Board.calculatePos(cursor);
-            d.setBounds(100 + pos[0]*100,50 + pos[1]*100,200 + pos[0]*100,150 + pos[1]*100);
+            d.setBounds(5 + pos[0]*PIECE_SIZE,30 + pos[1]*PIECE_SIZE,5 + PIECE_SIZE + pos[0]*PIECE_SIZE,30 + PIECE_SIZE + pos[1]*PIECE_SIZE);
             d.draw(canvas);
         }
     }
-
-
 }

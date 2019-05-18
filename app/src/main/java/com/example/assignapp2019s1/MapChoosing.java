@@ -17,7 +17,7 @@ public class MapChoosing extends AppCompatActivity {
 
     public void onPress(View v) {
         Intent intent = new Intent(this, Game.class);
-        intent.putExtra("Map", "map2");
+        intent.putExtra("Map", "map1");
         startActivity(intent);
     }
 }

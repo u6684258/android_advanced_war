@@ -39,7 +39,7 @@ public class MainGame {
         this.player2 = new Player();
         this.moves = new HashMap();
         this.gameStart = true;
-        this.current = new Board(map);
+        this.current = new Board(map, player1, player2);
         player1.setMoney(2000);
         player2.setMoney(2000);
     }

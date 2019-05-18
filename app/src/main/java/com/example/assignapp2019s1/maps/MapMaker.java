@@ -115,8 +115,8 @@ public class MapMaker {
         map1.put("A3", "Grass");
         map1.put("A4", "Road");
         map1.put("A5", "Grass");
-        map1.put("A6", "Workshop");
-        map1.put("A7", "HeadQuarters");
+        map1.put("A6", "Workshop1");
+        map1.put("A7", "HeadQuarters1");
         map1.put("B0", "Water");
         map1.put("B1", "Water");
         map1.put("B2", "Water");
@@ -124,7 +124,7 @@ public class MapMaker {
         map1.put("B4", "Road");
         map1.put("B5", "Grass");
         map1.put("B6", "Grass");
-        map1.put("B7", "Workshop");
+        map1.put("B7", "Workshop1");
         map1.put("C0", "City");
         map1.put("C1", "Grass");
         map1.put("C2", "Water");
@@ -221,7 +221,7 @@ public class MapMaker {
         map1.put("N5", "Mountain");
         map1.put("N6", "Mountain");
         map1.put("N7", "City");
-        map1.put("O0", "Workshop");
+        map1.put("O0", "Workshop2");
         map1.put("O1", "Grass");
         map1.put("O2", "Grass");
         map1.put("O3", "Grass");
@@ -229,8 +229,8 @@ public class MapMaker {
         map1.put("O5", "Mountain");
         map1.put("O6", "Water");
         map1.put("O7", "Water");
-        map1.put("P0", "HeadQuarters");
-        map1.put("P1", "Workshop");
+        map1.put("P0", "HeadQuarters2");
+        map1.put("P1", "Workshop2");
         map1.put("P2", "Grass");
         map1.put("P3", "Grass");
         map1.put("P4", "Road");

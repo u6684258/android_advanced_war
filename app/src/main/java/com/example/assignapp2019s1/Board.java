@@ -4,6 +4,7 @@ import com.example.assignapp2019s1.maps.MapMaker;
 import com.example.assignapp2019s1.terrains.City;
 import com.example.assignapp2019s1.terrains.Forest;
 import com.example.assignapp2019s1.terrains.Grass;
+import com.example.assignapp2019s1.terrains.HeadQuarters;
 import com.example.assignapp2019s1.terrains.Mountain;
 import com.example.assignapp2019s1.terrains.Road;
 import com.example.assignapp2019s1.terrains.Terrain;
@@ -64,12 +65,12 @@ public class Board {
         this.columnSize++;
     }
 
-    public Board(HashMap<String, String> map) {
+    public Board(HashMap<String, String> map, Player one, Player two) {
         units = new ArrayList<>();
         HashMap<String, String> mapTemp = map;
         for (Map.Entry<String, String> entry: mapTemp.entrySet()) {
             String ter = entry.getValue();
-            Terrain out;
+            Terrain out = null;
             switch (ter){
                 case "Grass":
                     out = new Grass();
@@ -92,9 +93,40 @@ public class Board {
                 case "Workshop":
                     out = new WorkShop();
                     break;
-                default:
-                    out = new Grass();
+                case "HeadQuarters":
+                    out = new HeadQuarters();
                     break;
+                default:
+                    break;
+            }
+            if (out == null) {
+                String type = ter.substring(0, ter.length()-1);
+                Integer owner = Integer.parseInt(ter.substring(ter.length()-1));
+                Player p = owner == 1?one:two;
+                boolean isone = owner == 1;
+                switch (type){
+                    case "City":
+                        out = new City();
+                        out.setBuildings((City) out);
+                        ((City) out).setOwner(p);
+                        out.pic = isone?R.drawable.city_red:R.drawable.city_blue;
+                        break;
+                    case "Workshop":
+                        out = new WorkShop();
+                        out.setBuildings((City) out);
+                        ((City) out).setOwner(p);
+                        out.pic = isone?R.drawable.workshop_red:R.drawable.workshop_blue;
+                        break;
+                    case "HeadQuarters":
+                        out = new HeadQuarters();
+                        out.setBuildings((City) out);
+                        ((City) out).setOwner(p);
+                        out.pic = isone?R.drawable.hq_red:R.drawable.hq_blue;
+                        break;
+                    default:
+                        out= new Grass();
+                        break;
+                }
             }
             this.map.put(entry.getKey(), out);
             if (getRow(entry.getKey()) - 64 > this.rowSize)
