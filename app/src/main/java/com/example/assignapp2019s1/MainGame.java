@@ -48,7 +48,7 @@ public class MainGame {
         this.gameStart = true;
         this.current = new Board(map);
         player1.setMoney(2000 + (current.getAllCities(player1).size() * 1000));
-        player2.setMoney(2000 + (current.getAllCities(player1).size() * 1000));
+        player2.setMoney(2000 + (current.getAllCities(player2).size() * 1000));
 
 
 
@@ -330,13 +330,13 @@ public class MainGame {
     public static void deployUnit(Unit unit, Player player, WorkShop workShop){
         Double unitcost = unit.getUnitCost();
         if (player.id == 1){
-            unit.pic = R.drawable.infantryRed;
+            unit.pic = R.drawable.infantryred;
             unit.setOwner(player);
             workShop.setUnitHere(unit);
         }
 
         if (player.id == 2){
-            unit.pic = R.drawable.infantryBlue;
+            unit.pic = R.drawable.infantryblue;
             unit.setOwner(player);
             workShop.setUnitHere(unit);
         }
@@ -349,9 +349,9 @@ public class MainGame {
 //Method used to create a unit of any player anywhere on the map. Most likely will be used for debugging/testing.
     public static void summonUnit(Unit unit, Board board, Player player, String position){
         if (player.id == 1){
-            unit.pic = R.drawable.infantryRed;
+            unit.pic = R.drawable.infantryred;
         }else{
-            unit.pic = R.drawable.infantryBlue;
+            unit.pic = R.drawable.infantryblue;
         }
 
         board.map.get(position).setUnitHere(unit);

@@ -25,7 +25,7 @@ public class Artillery extends Unit {
 
 
         this.Has_ImmediateAttack = true;
-        this.Has_DirectCounterAttack = true;
+        this.Has_DirectCounterAttack = false;
         this.can_fire = false;
         this.can_move = false;
 
