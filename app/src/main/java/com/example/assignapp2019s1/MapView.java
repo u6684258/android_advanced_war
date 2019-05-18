@@ -88,6 +88,8 @@ public class MapView extends View {
                 int[] pos = Board.calculatePos(entry.getKey());
                 d.setBounds(100 + pos[0]*100,50 + pos[1]*100,200 + pos[0]*100,150 + pos[1]*100);
                 d.draw(canvas);
+
+
             }
             Drawable d = ResourcesCompat.getDrawable(getResources(),R.drawable.cursor, null);
             int[] pos = Board.calculatePos(cursor);

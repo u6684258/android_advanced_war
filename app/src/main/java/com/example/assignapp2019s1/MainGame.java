@@ -426,10 +426,10 @@ proportional to the amount of hp that was wasted.
         Tank tank = new Tank(player1, "A1");
         Infantry infantry = new Infantry(player2, "A2");
         MediumTank mediumTank = new MediumTank(player2,"A3");
-        board.units.add(mediumTank);
-        board.units.add(tank);
+//        board.units.add(mediumTank);
+//        board.units.add(tank);
+//        board.units.add(infantry);
         summonUnit(tank, board, player1, "A1");
-        board.units.add(infantry);
         summonUnit(infantry, board, player2, "A2");
         summonUnit(mediumTank, board, player2, "A3");
         System.out.println("player 1 tank HP:" + board.map.get("A1").getUnitHere().getHitpoints());
