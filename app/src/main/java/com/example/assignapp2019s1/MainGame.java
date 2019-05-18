@@ -31,6 +31,7 @@ public class MainGame {
         this.moves = new HashMap();
         this.gameStart = true;
         this.current = new Board(map);
+
     }
 
     public MainGame(HashMap<String, String> map) {

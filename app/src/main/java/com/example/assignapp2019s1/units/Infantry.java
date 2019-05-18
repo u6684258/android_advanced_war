@@ -16,7 +16,7 @@ public class Infantry extends Unit {
         this.maxhitpoints = 10;
         this.ammo = 99;
         this.fuel = 999;
-        this.mobility = 6;
+        this.mobility = 3;
         this.visionscore = 2;
 
         this.attackRange = 1;
