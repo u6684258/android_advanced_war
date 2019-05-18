@@ -441,7 +441,7 @@ proportional to the amount of hp that was wasted.
 
         attack(board.map.get("A1").getUnitHere(), board.map.get("A2").getUnitHere(), board);
 
-        System.out.println("Tank attacks infantry");
+        System.out.println("Tank attacks infantry, infantry should suffer heavy damage and tank should take no damage on counter-attack");
         System.out.println("player 1 tank HP:" + board.map.get("A1").getUnitHere().getHitpoints());
         System.out.println("player 1 tank DMG Rating:" + board.map.get("A1").getUnitHere().getDamageRating() *
                 board.map.get("A1").getUnitHere().getHitpoints());
