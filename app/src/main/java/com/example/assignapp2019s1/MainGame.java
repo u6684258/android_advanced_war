@@ -330,21 +330,15 @@ public class MainGame {
     public static void deployUnit(Unit unit, Player player, WorkShop workShop){
         Double unitcost = unit.getUnitCost();
         if (player.id == 1){
-<<<<<<< HEAD
+
             unit.pic = R.drawable.infantryred;
-=======
-            unit.pic = R.drawable.infantry_red;
->>>>>>> d25ec7d5a620daaacf71bc0af260677f97e62cc1
+
             unit.setOwner(player);
             workShop.setUnitHere(unit);
         }
 
         if (player.id == 2){
-<<<<<<< HEAD
             unit.pic = R.drawable.infantryblue;
-=======
-            unit.pic = R.drawable.infantry_blue;
->>>>>>> d25ec7d5a620daaacf71bc0af260677f97e62cc1
             unit.setOwner(player);
             workShop.setUnitHere(unit);
         }
@@ -357,17 +351,12 @@ public class MainGame {
 //Method used to create a unit of any player anywhere on the map. Most likely will be used for debugging/testing.
     public static void summonUnit(Unit unit, Board board, Player player, String position){
         if (player.id == 1){
-<<<<<<< HEAD
+
             unit.pic = R.drawable.infantryred;
         }else{
             unit.pic = R.drawable.infantryblue;
-=======
-            unit.pic = R.drawable.infantry_red;
-        }else{
-            unit.pic = R.drawable.infantry_blue;
->>>>>>> d25ec7d5a620daaacf71bc0af260677f97e62cc1
-        }
 
+        }
         board.map.get(position).setUnitHere(unit);
         unit.setPosition(position);
         unit.setOwner(player);
