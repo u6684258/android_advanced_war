@@ -329,6 +329,7 @@ public class Game extends AppCompatActivity {
         textView.setGravity(Gravity.CENTER);
         relativeLayout.addView(textView);
         last_preview = textView;
+        textView.setVisibility(View.VISIBLE);
 
         if (menuOn) {
             Button b = findViewById(R.id.back);
@@ -344,6 +345,7 @@ public class Game extends AppCompatActivity {
             Button b = findViewById(R.id.purse);
             mapView.setAlpha(0.5f);
             b.performClick();
+            textView.setVisibility(View.GONE);
         }
     }
 
