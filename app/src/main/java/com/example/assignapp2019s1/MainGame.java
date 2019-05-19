@@ -346,10 +346,10 @@ public class MainGame {
     }
 
 //Default method for workshops to deploy units - unit selected will be deployed on top of workshop and money subtracted.
-    public static void deployUnit(Unit unit, Player player, WorkShop workShop){
+    public static boolean deployUnit(Unit unit, Player player, WorkShop workShop){
         Double unitcost = unit.getUnitCost();
         if (unitcost > player.money)
-            return;
+            return false;
         if (player.id == 1){
             unit.pic = R.drawable.infantryred;
             unit.setOwner(player);
@@ -364,6 +364,7 @@ public class MainGame {
         player.spendMoney(unitcost.intValue());
         _wait(unit);
         unit.alpha = 150;
+        return true;
     }
 
 
@@ -414,9 +415,14 @@ proportional to the amount of hp that was wasted.
      */
     public boolean checkGameOver() {
         if (current.map.get(player1.hqAddress).getBuildings().getOwner()==player2 ||
-                current.map.get(player2.hqAddress).getBuildings().getOwner()==player1)
+                current.map.get(player2.hqAddress).getBuildings().getOwner()==player1) {
+            this.gameStart = false;
             return true;
-        else return false;
+        }
+
+        else {
+            return false;
+        }
     }
 
     public void updateIncome(Player player, Board board){
