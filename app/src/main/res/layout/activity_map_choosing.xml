@@ -15,7 +15,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="103dp"
         android:layout_marginLeft="103dp"
-        android:layout_marginBottom="173dp"
+        android:layout_marginBottom="236dp"
 
         android:onClick="onPress"
         android:text="MAP1" />
@@ -46,9 +46,33 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="357dp"
-        android:layout_marginLeft="357dp"
-        android:layout_marginBottom="162dp"
+        android:layout_marginStart="365dp"
+        android:layout_marginLeft="365dp"
+        android:layout_marginBottom="127dp"
         app:srcCompat="@drawable/mapchooselogo" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="134dp"
+        android:layout_height="75dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="210dp"
+        android:layout_marginLeft="210dp"
+        android:layout_marginBottom="222dp"
+        app:srcCompat="@drawable/maponethumbnail" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="134dp"
+        android:layout_height="75dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="210dp"
+        android:layout_marginLeft="210dp"
+        android:layout_marginBottom="90dp"
+        app:srcCompat="@drawable/maptwothumbnail" />
 
 </RelativeLayout>
