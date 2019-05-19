@@ -17,6 +17,8 @@ public class FullscreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_fullscreen);
+        View v = findViewById(R.id.imageButton2);
+        v.bringToFront();
 
     }
     public void pressStart(View v){
