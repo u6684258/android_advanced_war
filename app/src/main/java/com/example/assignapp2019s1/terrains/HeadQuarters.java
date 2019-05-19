@@ -1,6 +1,5 @@
 package com.example.assignapp2019s1.terrains;
 
-import com.example.assignapp2019s1.Player;
 import com.example.assignapp2019s1.R;
 
 public class HeadQuarters extends City {
@@ -24,6 +23,7 @@ public class HeadQuarters extends City {
         this.maxcapturescore = 20;
         this.incomeGain = 2000;
         this.pic = R.drawable.hq_red;
+        this.buildings = this;
 
 
     }

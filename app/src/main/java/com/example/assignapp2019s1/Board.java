@@ -121,6 +121,7 @@ public class Board {
                         out = new HeadQuarters();
                         out.setBuildings((City) out);
                         ((City) out).setOwner(p);
+                        p.hqAddress = entry.getKey();
                         out.pic = isone?R.drawable.hq_red:R.drawable.hq_blue;
                         break;
                     default:

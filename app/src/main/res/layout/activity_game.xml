@@ -183,6 +183,72 @@
         android:text="capture"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/gameOver"
+        android:layout_width="312dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="238dp"
+        android:layout_marginRight="238dp"
+        android:layout_marginBottom="214dp"
+        android:textSize="36sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="144dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="364dp"
+        android:layout_marginRight="364dp"
+        android:layout_marginBottom="249dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/Mute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="button_mute"
+            android:text="Mute"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/Back_To_Main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/Mute"
+            android:onClick="button_MainMenu"
+            android:text="Main Menu"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="button_back"
+            android:text="back to game" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/purse"
+        android:layout_width="37dp"
+        android:layout_height="36dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="33dp"
+        android:onClick="button_purse"
+        android:text="II"
+        android:textStyle="bold" />
+
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
 

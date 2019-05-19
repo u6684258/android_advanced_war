@@ -1,5 +1,6 @@
 package com.example.assignapp2019s1;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,7 @@ public class Game extends AppCompatActivity {
 
     int cursorLevel = 0;
     int unit_cursor = 0;
+    boolean menuOn = false;
     protected TextView last_preview;
     ArrayList<String> units = new ArrayList<>();
 
@@ -154,11 +156,15 @@ public class Game extends AppCompatActivity {
                     x = new Infantry(cur, cursor);
                     break;
             }
-            MainGame.deployUnit(x, cur, (WorkShop) mapView.game.current.map.get(cursor));
+            if(!MainGame.deployUnit(x, cur, (WorkShop) mapView.game.current.map.get(cursor))){
+                Toast.makeText(getApplicationContext(), "no enough money!", Toast.LENGTH_SHORT).show();
+            }
+            else {
             mapView.invalidate();
             Button b = findViewById(R.id.button_B);
             b.performClick();
-        }
+            unit_cursor = 0;
+        }}
 
         else if (cursorLevel == 0 && t.isOccupied() && t.getUnitHere().isCan_move()) {
             cursorLevel = 2;
@@ -178,6 +184,7 @@ public class Game extends AppCompatActivity {
         else if (cursorLevel == 3 && mapView.game.current.map.get(cursor).isOccupied()) {
             if (MainGame.getAttackRange(mapView.selected,mapView.game.current).contains(cursor)) {
                 MainGame.attack(mapView.selected, mapView.game.current.map.get(cursor).getUnitHere(),mapView.game.current);
+                Toast.makeText(getApplicationContext(), "fire!", Toast.LENGTH_SHORT).show();
                 mapView.finishShowAttackRange();
                 mapView.invalidate();
             }
@@ -271,6 +278,7 @@ public class Game extends AppCompatActivity {
         Button b = findViewById(R.id.capture);
         if (b != null)
             b.setVisibility(View.GONE);
+        Toast.makeText(getApplicationContext(), "player " + mapView.game.whoseTurn + "'s turn!", Toast.LENGTH_SHORT).show();
         mapView.invalidate();
     }
 
@@ -282,6 +290,8 @@ public class Game extends AppCompatActivity {
         if (b != null)
             b.setVisibility(View.GONE);
         mapView.finishShowMoveRange();
+        Toast.makeText(getApplicationContext(), "capture!", Toast.LENGTH_SHORT).show();
+        mapView.game.checkGameOver();
         buttonClickHandler();
     }
 
@@ -295,9 +305,11 @@ public class Game extends AppCompatActivity {
         MapView mapView = findViewById(R.id.mapView2);
         TextView textView = new TextView(this);
         String t = mapView.game.current.map.get(mapView.cursor).getTerrainType().toString();
-        if (mapView.game.current.map.get(mapView.cursor).getTerrainType() == TerrainType.City){
+        if (mapView.game.current.map.get(mapView.cursor).getTerrainType() == TerrainType.City ||
+                mapView.game.current.map.get(mapView.cursor).getTerrainType() == TerrainType.Workshop ||
+                mapView.game.current.map.get(mapView.cursor).getTerrainType() == TerrainType.HeadQuarters){
             City city = (City) mapView.game.current.map.get(mapView.cursor);
-            t += "capture remained: " + ((City) mapView.game.current.map.get(mapView.cursor)).getCapturescore();
+            t += "capture remained: " + city.getCapturescore();
         }
         if (mapView.game.current.map.get(mapView.cursor).getUnitHere() != null) {
             Unit u = mapView.game.current.map.get(mapView.cursor).getUnitHere();
@@ -317,8 +329,43 @@ public class Game extends AppCompatActivity {
         textView.setGravity(Gravity.CENTER);
         relativeLayout.addView(textView);
         last_preview = textView;
+
+        if (menuOn) {
+            Button b = findViewById(R.id.back);
+            b.performClick();
+        }
+
+
+        if (!mapView.game.gameStart) {
+            TextView gameover = findViewById(R.id.gameOver);
+            t = "PLAYER " + mapView.game.whoseTurn + " WIN!";
+            gameover.setText(t);
+            gameover.setVisibility(View.VISIBLE);
+            Button b = findViewById(R.id.purse);
+            mapView.setAlpha(0.5f);
+            b.performClick();
+        }
     }
 
+    public void button_MainMenu(View v) {
+        Intent intent = new Intent(this, FullscreenActivity.class);
+        startActivity(intent);
+    }
+
+    public void button_mute(View v) {
+
+    }
+
+    public void button_purse(View v) {
+        LinearLayout l = findViewById(R.id.menu);
+        menuOn = true;
+        l.setVisibility(View.VISIBLE);
+    }
+    public void button_back(View v) {
+        LinearLayout l = findViewById(R.id.menu);
+        menuOn = false;
+        l.setVisibility(View.GONE);
+    }
 
 
 }

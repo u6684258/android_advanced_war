@@ -128,6 +128,10 @@ public class MapView extends View {
 
         }
 
+        else if (game.gameStart && game.checkGameOver()) {
+            game.gameStart = false;
+        }
+
         else {
             for (Map.Entry<String, Terrain> entry : game.current.map.entrySet()) {
                 Drawable d = ResourcesCompat.getDrawable(getResources(),entry.getValue().pic, null);
