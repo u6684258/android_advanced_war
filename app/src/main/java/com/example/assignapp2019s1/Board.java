@@ -187,6 +187,11 @@ public class Board {
 
     }
 
+    public void removeAUnit(Unit unit){
+        units.remove(unit);
+        map.get(unit.getPosition()).leavePosition();
+    }
+
 
 
     public String moveDown(String position) {

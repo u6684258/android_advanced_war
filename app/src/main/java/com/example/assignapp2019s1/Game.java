@@ -21,6 +21,7 @@ import com.example.assignapp2019s1.units.MediumTank;
 import com.example.assignapp2019s1.units.Recon;
 import com.example.assignapp2019s1.units.Tank;
 import com.example.assignapp2019s1.units.Unit;
+import com.example.assignapp2019s1.units.UnitSubType;
 
 import java.util.ArrayList;
 
@@ -55,6 +56,9 @@ public class Game extends AppCompatActivity {
             return;
         MapView mapView = findViewById(R.id.mapView2);
         mapView.cursor = mapView.game.current.moveLeft(mapView.cursor);
+        Button b = findViewById(R.id.capture);
+        if (b != null)
+            b.setVisibility(View.GONE);
         buttonClickHandler();
         mapView.invalidate();
     }
@@ -64,6 +68,9 @@ public class Game extends AppCompatActivity {
             return;
         MapView mapView = findViewById(R.id.mapView2);
         mapView.cursor = mapView.game.current.moveRight(mapView.cursor);
+        Button b = findViewById(R.id.capture);
+        if (b != null)
+            b.setVisibility(View.GONE);
         buttonClickHandler();
         mapView.invalidate();
     }
@@ -72,6 +79,9 @@ public class Game extends AppCompatActivity {
             return;
         MapView mapView = findViewById(R.id.mapView2);
         mapView.cursor = mapView.game.current.moveUp(mapView.cursor);
+        Button b = findViewById(R.id.capture);
+        if (b != null)
+            b.setVisibility(View.GONE);
         buttonClickHandler();
         mapView.invalidate();
     }
@@ -80,6 +90,9 @@ public class Game extends AppCompatActivity {
             return;
         MapView mapView = findViewById(R.id.mapView2);
         mapView.cursor = mapView.game.current.moveDown(mapView.cursor);
+        Button b = findViewById(R.id.capture);
+        if (b != null)
+            b.setVisibility(View.GONE);
         buttonClickHandler();
         mapView.invalidate();
     }
@@ -88,8 +101,12 @@ public class Game extends AppCompatActivity {
         MapView mapView = findViewById(R.id.mapView2);
         String cursor = mapView.cursor;
         Terrain t = mapView.game.current.map.get(cursor);
+        Player p = mapView.game.whoseTurn == 1?mapView.game.player1:mapView.game.player2;
 
         if (t.getTerrainType() == TerrainType.Workshop && cursorLevel == 0 && !t.isOccupied()) {
+            WorkShop w = (WorkShop) t;
+            if (w.getOwner() != p)
+                return;
             LinearLayout l = findViewById(R.id.build_unit);
             l.setVisibility(View.VISIBLE);
             for (String x : units) {
@@ -113,7 +130,7 @@ public class Game extends AppCompatActivity {
             b = findViewById(R.id.right);
             b.setVisibility(View.GONE);
         }
-        // TODO: 2019-05-17 change player
+
         else if (cursorLevel == 1) {
             Unit x;
             Player cur = mapView.game.whoseTurn == 1?mapView.game.player1:mapView.game.player2;
@@ -152,9 +169,27 @@ public class Game extends AppCompatActivity {
 
         else if (cursorLevel == 2){
             if (MainGame.move(mapView.selected, cursor, mapView.game.current)) {
-                mapView.finishShowMoveRange();
                 cursorLevel = 0;
+                mapView.finishShowMoveRange();
                 mapView.invalidate();
+            }
+        }
+
+        else if (cursorLevel == 3 && mapView.game.current.map.get(cursor).isOccupied()) {
+            if (MainGame.getAttackRange(mapView.selected,mapView.game.current).contains(cursor)) {
+                MainGame.attack(mapView.selected, mapView.game.current.map.get(cursor).getUnitHere(),mapView.game.current);
+                mapView.finishShowAttackRange();
+                mapView.invalidate();
+            }
+            cursorLevel = 0;
+        }
+        if (t.isOccupied() && (t.getTerrainType() == TerrainType.City || t.getTerrainType() == TerrainType.HeadQuarters||
+                t.getTerrainType() == TerrainType.Workshop)){
+            City cur = (City) t;
+            if (t.getUnitHere().getUnitSubType() == UnitSubType.Infantry &&
+                    (((City) t).getOwner() == null || t.getUnitHere().getOwner() != ((City) t).getOwner())){
+                Button b = findViewById(R.id.capture);
+                b.setVisibility(View.VISIBLE);
             }
         }
         buttonClickHandler();
@@ -200,6 +235,9 @@ public class Game extends AppCompatActivity {
             mapView.finishShowAttackRange();
             mapView.invalidate();
         }
+        Button b = findViewById(R.id.capture);
+        if (b != null)
+            b.setVisibility(View.GONE);
         buttonClickHandler();
     }
 
@@ -226,11 +264,25 @@ public class Game extends AppCompatActivity {
         cur.setBackgroundColor(Color.parseColor("#555555"));
     }
 
-    public void Button_end_turn(View v) {
+    public void buttonEndTurn(View v) {
         MapView mapView = findViewById(R.id.mapView2);
         //todo: make sure this is right
         mapView.game.switchTurn(mapView.game.current);
+        Button b = findViewById(R.id.capture);
+        if (b != null)
+            b.setVisibility(View.GONE);
         mapView.invalidate();
+    }
+
+    public void button_capture(View v) {
+        MapView mapView = findViewById(R.id.mapView2);
+        MainGame.capture(mapView.game.current.map.get(mapView.cursor).getUnitHere(),(City) mapView.game.current.map.get(mapView.cursor));
+        mapView.invalidate();
+        Button b = findViewById(R.id.capture);
+        if (b != null)
+            b.setVisibility(View.GONE);
+        mapView.finishShowMoveRange();
+        buttonClickHandler();
     }
 
 
@@ -242,15 +294,18 @@ public class Game extends AppCompatActivity {
         }
         MapView mapView = findViewById(R.id.mapView2);
         TextView textView = new TextView(this);
-        String t = "defence: " + mapView.game.current.map.get(mapView.cursor).getDefenceRating();
+        String t = mapView.game.current.map.get(mapView.cursor).getTerrainType().toString();
         if (mapView.game.current.map.get(mapView.cursor).getTerrainType() == TerrainType.City){
             City city = (City) mapView.game.current.map.get(mapView.cursor);
             t += "capture remained: " + ((City) mapView.game.current.map.get(mapView.cursor)).getCapturescore();
         }
         if (mapView.game.current.map.get(mapView.cursor).getUnitHere() != null) {
             Unit u = mapView.game.current.map.get(mapView.cursor).getUnitHere();
-            t += "unit: " + u.getUnitType() + " HP:" + u.getHitpoints()+ " movable:" + u.isCan_move() + " mobility:" +
+            t += "unit: " + u.getUnitType() + " HP:" + u.getHitpoints()+ " movable:" + u.isCan_fire() + " mobility:" +
                     u.getMovePoint() + " attack range:" + u.getAttackRange();
+        }
+        if (cursorLevel == 1){
+            t = "current money:" + (mapView.game.whoseTurn == 1?mapView.game.player1.money:mapView.game.player2.money);
         }
         textView.setText(t);
         textView.setBackgroundColor(Color.parseColor("#bdbdbd"));
