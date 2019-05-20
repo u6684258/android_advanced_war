@@ -10,6 +10,7 @@ import com.example.assignapp2019s1.units.Infantry;
 import com.example.assignapp2019s1.units.MediumTank;
 import com.example.assignapp2019s1.units.Tank;
 import com.example.assignapp2019s1.units.Unit;
+import com.example.assignapp2019s1.units.UnitSubType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -171,6 +172,18 @@ public class MainGame {
         unit.takeMove(des);
         currentBoard.map.get(pos).leavePosition();
         currentBoard.map.get(des).takePosition(unit);
+
+        if (unit.isCan_fire() && (currentBoard.map.get(des).getTerrainType() == TerrainType.City  ||
+                currentBoard.map.get(des).getTerrainType() == TerrainType.HeadQuarters ||
+                currentBoard.map.get(des).getTerrainType() == TerrainType.Workshop)){
+            City c = (City) currentBoard.map.get(des);
+            if ((c.getOwner() == null || c.getOwner() != unit.getOwner()) && unit.getUnitSubType() == UnitSubType.Infantry){
+                unit.alpha = 255;
+            }
+            else unit.alpha = 150;
+        }
+        else if (getAttackRange(unit,currentBoard).isEmpty())
+            _wait(unit);
         return true;
     }
 
@@ -184,6 +197,7 @@ public class MainGame {
         Player owner = unit.getOwner();
         int attackRange = unit.getAttackRange();
         ArrayList<String> range = MainGame.getMovementRange(unit, board);
+        range.add(unit.getPosition());
         ArrayList<String> outcome = new ArrayList<>();
         outcome.addAll(range);
         ArrayList<String> toadd = new ArrayList<>();
@@ -246,15 +260,17 @@ public class MainGame {
                 damageDealt = ((defender.getTotaldamageRating() - attacker.getTotaldefenserating()) / 10) * board.map.get(defender.getPosition()).getDefenceRating();
                 attacker.setHitpoints(defender.getHitpoints() - damageDealt);
                 if(attacker.getHitpoints() <= 0){
-                    board.units.remove(attacker);
+                    board.removeAUnit(attacker);
                 }
             }
         }
         if(defender.getHitpoints() <= 0){
             //remove unit function
-            board.units.remove(defender);
+            board.removeAUnit(defender);
         }
-
+        int a = attacker.getAmmo();
+        a--;
+        attacker.setAmmo(a);
         _wait(attacker);
 
     }
@@ -265,12 +281,14 @@ public class MainGame {
     public static void _wait(Unit unit) {
         unit.setCan_move(false);
         unit.setCan_fire(false);
+        unit.alpha = 150;
     }
 
     public static void _activate(Unit unit){
         unit.setCan_fire(true);
         unit.setCan_move(true);
         unit.setMovePoint(unit.getMobility());
+        unit.alpha = 255;
     }
 
     /*
@@ -338,12 +356,12 @@ public class MainGame {
     }
 
 //Default method for workshops to deploy units - unit selected will be deployed on top of workshop and money subtracted.
-    public static void deployUnit(Unit unit, Player player, WorkShop workShop){
+    public static boolean deployUnit(Unit unit, Player player, WorkShop workShop){
         Double unitcost = unit.getUnitCost();
+        if (unitcost > player.money)
+            return false;
         if (player.id == 1){
-
             unit.pic = R.drawable.infantryred;
-
             unit.setOwner(player);
             workShop.setUnitHere(unit);
         }
@@ -353,9 +371,10 @@ public class MainGame {
             unit.setOwner(player);
             workShop.setUnitHere(unit);
         }
-
-
         player.spendMoney(unitcost.intValue());
+        _wait(unit);
+        unit.alpha = 150;
+        return true;
     }
 
 
@@ -406,9 +425,14 @@ proportional to the amount of hp that was wasted.
      */
     public boolean checkGameOver() {
         if (current.map.get(player1.hqAddress).getBuildings().getOwner()==player2 ||
-                current.map.get(player2.hqAddress).getBuildings().getOwner()==player1)
+                current.map.get(player2.hqAddress).getBuildings().getOwner()==player1) {
+            this.gameStart = false;
             return true;
-        else return false;
+        }
+
+        else {
+            return false;
+        }
     }
 
     public void updateIncome(Player player, Board board){
@@ -486,6 +510,11 @@ proportional to the amount of hp that was wasted.
         System.out.println("player 2 infantry HP:" + board.map.get("A2").getUnitHere().getHitpoints());
         System.out.println("player 2 infantry DMG Rating:" + board.map.get("A2").getUnitHere().getTotaldamageRating());
         System.out.println("Player 2 infantry terrain bonus:" + board.map.get("A2").getDefenceRating());
+        System.out.println("Player 1 tank move point:" + board.map.get("A1").getUnitHere().getMovePoint());
+        System.out.println("Player 2 infantry move point:" + board.map.get("A2").getUnitHere().getMovePoint());
+        System.out.println("Player 1 tank terrain bonus:" + MainGame.getMovementRange(board.map.get("A1").getUnitHere(),board));
+        System.out.println("Player 1 tank terrain bonus:" + MainGame.getAttackRange(board.map.get("A2").getUnitHere(),board));
+
 
         attack(board.map.get("A1").getUnitHere(), board.map.get("A2").getUnitHere(), board);
 

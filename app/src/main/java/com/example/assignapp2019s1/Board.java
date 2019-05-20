@@ -121,6 +121,7 @@ public class Board {
                         out = new HeadQuarters();
                         out.setBuildings((City) out);
                         ((City) out).setOwner(p);
+                        p.hqAddress = entry.getKey();
                         out.pic = isone?R.drawable.hq_red:R.drawable.hq_blue;
                         break;
                     default:
@@ -178,13 +179,18 @@ public class Board {
     public ArrayList<String> getAllUnits(Player player){
         ArrayList<String> allUnits = new ArrayList<>();
         for(Map.Entry<String, Terrain> entry : map.entrySet()){
-         if (entry.getValue().getUnitHere().getOwner() == player){
+         if (entry.getValue().isOccupied() && entry.getValue().getUnitHere().getOwner() == player){
              allUnits.add(entry.getKey());
          }
 
         }
         return allUnits;
 
+    }
+
+    public void removeAUnit(Unit unit){
+        units.remove(unit);
+        map.get(unit.getPosition()).leavePosition();
     }
 
 

@@ -1,7 +1,6 @@
 package com.example.assignapp2019s1.terrains;
 
 import com.example.assignapp2019s1.R;
-import com.example.assignapp2019s1.units.Unit;
 
 public class Water extends Terrain {
 
@@ -9,7 +8,7 @@ public class Water extends Terrain {
         this.terrainType = TerrainType.Water;
         this.isOccupied = false;
         this.defenceRating = 1;
-        this.movementCost = 1;
+        this.movementCost = 99;
         this.pic = R.drawable.water;
     }
 }

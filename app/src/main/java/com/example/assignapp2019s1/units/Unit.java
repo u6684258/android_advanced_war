@@ -8,6 +8,11 @@ public abstract class Unit {
     }
 
     UnitType unitType;
+
+    public UnitSubType getUnitSubType() {
+        return unitSubType;
+    }
+
     UnitSubType unitSubType;
     Player owner;
 
@@ -215,31 +220,12 @@ public abstract class Unit {
     public void takeMove(String des) {
         this.position = des;
         this.can_move = false;
+        this.movePoint = 0;
         this.fuel--;
         if (!this.Has_ImmediateAttack) {
             this.can_fire = false;
+            this.alpha = 150;
         }
     }
-    // the unit fires. change everything need to change.
-    public void takeFire(Unit tar) {
-        this.can_fire = false;
-        this.can_move = false;
-        this.ammo--;
-    }
-}
-
-enum UnitSubType {
-    Infantry,
-    Land,
-    Aerial,
-    Sea
-}
-
-enum UnitType {
-    infantry,
-    recon,
-    tank,
-    artillery,
-    MdTank
 }
 

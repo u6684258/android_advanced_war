@@ -4,25 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#000000"
     tools:context=".FullscreenActivity">
 
     <ImageButton
         android:id="@+id/imageButton2"
-        android:layout_width="181dp"
+        android:layout_width="297dp"
         android:layout_height="wrap_content"
 
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="304dp"
-        android:layout_marginLeft="304dp"
-        android:layout_marginEnd="312dp"
-        android:layout_marginRight="312dp"
-        android:layout_marginBottom="42dp"
+        android:layout_alignStart="@+id/imageView5"
+        android:layout_alignLeft="@+id/imageView5"
+        android:layout_alignBottom="@+id/imageView5"
+        android:layout_marginStart="251dp"
+        android:layout_marginLeft="251dp"
+        android:layout_marginBottom="22dp"
         android:background="#00000000"
         android:onClick="pressStart"
         android:scaleType="center"
         app:srcCompat="@drawable/trans" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="2160dp"
+        android:layout_height="1080dp"
+        app:srcCompat="@drawable/mapchoose" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="345dp"
+        android:layout_height="184dp"
+        android:layout_above="@+id/imageButton2"
+        android:layout_alignStart="@+id/imageView5"
+        android:layout_alignLeft="@+id/imageView5"
+        android:layout_alignTop="@+id/imageView5"
+        android:layout_marginStart="230dp"
+        android:layout_marginLeft="230dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginBottom="6dp"
+        app:srcCompat="@drawable/title" />
 
 </RelativeLayout>

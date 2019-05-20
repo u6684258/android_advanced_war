@@ -9,8 +9,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.example.assignapp2019s1.terrains.Terrain;
-import com.example.assignapp2019s1.terrains.WorkShop;
-import com.example.assignapp2019s1.units.Infantry;
 import com.example.assignapp2019s1.units.Unit;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -79,20 +77,7 @@ public class MapView extends View {
 //
         game = new MainGame(m);
         cursor = "A0";
-        //todo: remove this
-        Infantry x = new Infantry(game.player1, "A6");
-        x.setCan_fire(true);
-        x.setCan_move(true);
-        x.setMovePoint(x.getMobility());
-        MainGame.deployUnit(x,  game.player1, (WorkShop) game.current.map.get("A6"));
 
-        Infantry y = new Infantry(game.player2, "B5");
-        MainGame.summonUnit(y, game.current, game.player2, "B5");
-
-        Infantry z = new Infantry(game.player1, "B6");
-        MainGame.summonUnit(z, game.current, game.player1, "B6");
-
-        this.invalidate();
     }
 
     public void showMoveRange(Unit unit) {
@@ -100,7 +85,7 @@ public class MapView extends View {
         ArrayList<String> x = MainGame.getMovementRange(game.current.map.get(cursor).getUnitHere(), game.current);
         for (Map.Entry<String, Terrain> entry : game.current.map.entrySet()) {
             if (x.contains(entry.getKey())) {
-                entry.getValue().alpha = 150;
+                entry.getValue().alpha = 100;
             }
         }
     }
@@ -120,14 +105,19 @@ public class MapView extends View {
         for (Map.Entry<String, Terrain> entry : game.current.map.entrySet()) {
             if (entry.getValue().isOccupied() && !x.contains(entry.getKey()))
                 entry.getValue().getUnitHere().alpha = 150;
+            else if (entry.getValue().isOccupied() && x.contains(entry.getKey())){
+                entry.getValue().getUnitHere().alpha = 255;
+            }
         }
     }
 
     public void finishShowAttackRange() {
         selected = null;
         for (Map.Entry<String, Terrain> entry : game.current.map.entrySet()) {
-            if (entry.getValue().isOccupied())
+            if (entry.getValue().isOccupied() && (entry.getValue().getUnitHere().isCan_move() || entry.getValue().getUnitHere().isCan_fire()))
                 entry.getValue().getUnitHere().alpha = 255;
+            else if (entry.getValue().isOccupied())
+                entry.getValue().getUnitHere().alpha = 150;
         }
     }
 
@@ -136,6 +126,10 @@ public class MapView extends View {
         super.onDraw(canvas);
         if (game == null) {
 
+        }
+
+        else if (game.gameStart && game.checkGameOver()) {
+            game.gameStart = false;
         }
 
         else {

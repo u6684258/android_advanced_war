@@ -25,8 +25,8 @@ public class MovementTest {
 
     @Test
     public void passwater(){
-        test("B1",2,"C2", new Board("map1"),true);
-        test("L4",3,"L5", new Board("map1"),true);
+        test("B0",2,"B2", new Board("map1"),true);
+        test("L4",1,"L5", new Board("map1"),true);
     }
 
     @Test
