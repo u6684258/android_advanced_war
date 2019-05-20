@@ -278,8 +278,11 @@ public class Game extends AppCompatActivity {
     }
 
     public void buttonEndTurn(View v) {
+        if (cursorLevel != 0) {
+            Toast.makeText(getApplicationContext(), "please finish current action first!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         MapView mapView = findViewById(R.id.mapView2);
-        //todo: make sure this is right
         mapView.game.switchTurn(mapView.game.current);
         Button b = findViewById(R.id.capture);
         if (b != null)
@@ -290,7 +293,7 @@ public class Game extends AppCompatActivity {
 
     public void button_capture(View v) {
         MapView mapView = findViewById(R.id.mapView2);
-        MainGame.capture(mapView.game.current.map.get(mapView.cursor).getUnitHere(),(City) mapView.game.current.map.get(mapView.cursor));
+        mapView.game.capture(mapView.game.current.map.get(mapView.cursor).getUnitHere(),(City) mapView.game.current.map.get(mapView.cursor));
         mapView.invalidate();
         Button b = findViewById(R.id.capture);
         if (b != null)
@@ -335,6 +338,7 @@ public class Game extends AppCompatActivity {
         textView.setGravity(Gravity.CENTER);
         relativeLayout.addView(textView);
         last_preview = textView;
+
         textView.setVisibility(View.VISIBLE);
 
         if (menuOn) {

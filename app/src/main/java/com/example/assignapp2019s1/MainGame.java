@@ -11,6 +11,7 @@ import com.example.assignapp2019s1.units.MediumTank;
 import com.example.assignapp2019s1.units.Tank;
 import com.example.assignapp2019s1.units.Unit;
 import com.example.assignapp2019s1.units.UnitSubType;
+import com.example.assignapp2019s1.units.UnitType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +50,7 @@ public class MainGame {
         this.gameStart = true;
         this.current = new Board(map, player1, player2);
         player1.setMoney(2000 + (current.getAllCities(player1).size() * 1000));
-        player2.setMoney(2000 + (current.getAllCities(player2).size() * 1000));
+        player2.setMoney(current.getAllCities(player2).size() * 1000);
 
 
 
@@ -360,14 +361,27 @@ public class MainGame {
         Double unitcost = unit.getUnitCost();
         if (unitcost > player.money)
             return false;
+        UnitType t = unit.getUnitType();
         if (player.id == 1){
-            unit.pic = R.drawable.infantryred;
+            if (t == UnitType.infantry)
+                unit.pic = R.drawable.infantryred;
+            else if (t == UnitType.tank)
+                unit.pic = R.drawable.tank_red;
+            else if (t == UnitType.artillery)
+                unit.pic = R.drawable.artillery_red;
+
             unit.setOwner(player);
             workShop.setUnitHere(unit);
         }
 
         if (player.id == 2){
-            unit.pic = R.drawable.infantryblue;
+            if (t == UnitType.infantry)
+                unit.pic = R.drawable.infantryblue;
+            else if (t == UnitType.tank)
+                unit.pic = R.drawable.tank_blue;
+            else if (t == UnitType.artillery)
+                unit.pic = R.drawable.artillery_blue;
+
             unit.setOwner(player);
             workShop.setUnitHere(unit);
         }
