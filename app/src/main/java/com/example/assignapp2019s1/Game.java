@@ -2,6 +2,7 @@ package com.example.assignapp2019s1;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -37,6 +38,7 @@ public class Game extends AppCompatActivity {
     boolean menuOn = false;
     protected TextView last_preview;
     ArrayList<String> units = new ArrayList<>();
+    MediaPlayer bgm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,10 @@ public class Game extends AppCompatActivity {
         units.add("Recon");
         units.add("Median tank");
         units.add("Arttilery");
+
+        bgm = MediaPlayer.create(Game.this, R.raw.bgm1);
+        bgm.setLooping(true);
+        bgm.start();
     }
 
     public void button_up(View v){
@@ -323,7 +329,7 @@ public class Game extends AppCompatActivity {
         textView.setBackgroundColor(Color.parseColor("#bdbdbd"));
         textView.setPadding(10,10,10,10);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 15, 5, 0);
+        params.setMargins(0, 910, 5, 0);
         params.alignWithParent = true;
         textView.setLayoutParams(params);
         textView.setGravity(Gravity.CENTER);
@@ -350,12 +356,17 @@ public class Game extends AppCompatActivity {
     }
 
     public void button_MainMenu(View v) {
+        bgm.release();
+        bgm = null;
         Intent intent = new Intent(this, FullscreenActivity.class);
         startActivity(intent);
     }
 
     public void button_mute(View v) {
-
+        if (bgm.isPlaying())
+            bgm.pause();
+        else
+            bgm.start();
     }
 
     public void button_purse(View v) {
