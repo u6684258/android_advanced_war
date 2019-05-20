@@ -277,7 +277,7 @@ public class MainGame {
     capture the city with the unit. decrease captureScore of the city, formula in design document
     Make sure the unit cannot take any other actions after this.
      */
-    public static void capture(Unit unit, City city){
+    public void capture(Unit unit, City city){
 
         Double unitHP = Math.ceil(unit.getHitpoints());
         if(unit.isCan_capture()){
@@ -285,12 +285,22 @@ public class MainGame {
             if (city.getCapturescore() <= 0){
                 city.setOwner(unit.getOwner());
                 if (city.getOwner().id == 1){
-                    city.pic = R.drawable.city_red;
+                    if (city.pic == R.drawable.city_blue){
+                        city.pic = R.drawable.city_red;
+                    }
+                    if (city.pic == R.drawable.hq_blue){
+                        city.pic = R.drawable.hq_red;
+                    }
+                    if (city.pic == R.drawable.workshop_blue){
+                        city.pic = R.drawable.workshop_red;
+                    }
+
                 }else {
                     city.pic = R.drawable.city_blue;
                 }
             }
         }
+        checkGameOver();
         _wait(unit);
 
         if(!city.getUnitHere().isCan_capture() || city.getUnitHere() == null){
