@@ -289,6 +289,12 @@ public class Game extends AppCompatActivity {
             b.setVisibility(View.GONE);
         Toast.makeText(getApplicationContext(), "player " + mapView.game.whoseTurn + "'s turn!", Toast.LENGTH_SHORT).show();
         mapView.invalidate();
+        Player cur = mapView.game.whoseTurn == 1?mapView.game.player1:mapView.game.player2;
+        if (cur.isAI){
+            b = findViewById(R.id.end_turn);
+            b.performClick();
+        }
+
     }
 
     public void button_capture(View v) {
@@ -299,6 +305,7 @@ public class Game extends AppCompatActivity {
         if (b != null)
             b.setVisibility(View.GONE);
         mapView.finishShowMoveRange();
+        cursorLevel = 0;
         Toast.makeText(getApplicationContext(), "capture!", Toast.LENGTH_SHORT).show();
         mapView.game.checkGameOver();
         buttonClickHandler();
@@ -382,6 +389,14 @@ public class Game extends AppCompatActivity {
         LinearLayout l = findViewById(R.id.menu);
         menuOn = false;
         l.setVisibility(View.GONE);
+    }
+
+    public void button_setAI(View v) {
+        MapView mapview = findViewById(R.id.mapView2);
+        Player cur = mapview.game.whoseTurn == 1?mapview.game.player1:mapview.game.player2;
+        cur.isAI = !cur.isAI;
+        Button b = findViewById(R.id.end_turn);
+        b.performClick();
     }
 
 

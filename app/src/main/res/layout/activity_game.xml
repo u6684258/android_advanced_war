@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".Game">
+    tools:context=".Game"
+    android:screenOrientation="landscape">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -183,6 +184,21 @@
         android:layout_marginBottom="12dp"
         android:onClick="button_capture"
         android:text="capture"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/AIOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="259dp"
+        android:alpha="0.5"
+        android:onClick="button_setAI"
+        android:text="turn on AI"
         android:visibility="gone" />
 
     <TextView

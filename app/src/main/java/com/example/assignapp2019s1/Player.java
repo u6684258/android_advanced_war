@@ -7,6 +7,7 @@ public class Player {
 
     String hqAddress;
     int id;
+    public boolean isAI = false;
 
     public int getMoney() {
         return money;

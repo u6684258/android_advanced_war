@@ -304,18 +304,26 @@ public class MainGame {
             if (city.getCapturescore() <= 0){
                 city.setOwner(unit.getOwner());
                 if (city.getOwner().id == 1){
-                    if (city.pic == R.drawable.city_blue){
+                    if (city.pic == R.drawable.city_blue || city.pic == R.drawable.city_neutral){
                         city.pic = R.drawable.city_red;
                     }
-                    if (city.pic == R.drawable.hq_blue){
+                    else if (city.pic == R.drawable.hq_blue){
                         city.pic = R.drawable.hq_red;
                     }
-                    if (city.pic == R.drawable.workshop_blue){
+                    else if (city.pic == R.drawable.workshop_blue|| city.pic == R.drawable.workshop_neutral){
                         city.pic = R.drawable.workshop_red;
                     }
 
                 }else {
-                    city.pic = R.drawable.city_blue;
+                    if (city.pic == R.drawable.city_red || city.pic == R.drawable.city_neutral){
+                        city.pic = R.drawable.city_blue;
+                    }
+                    if (city.pic == R.drawable.hq_red){
+                        city.pic = R.drawable.hq_blue;
+                    }
+                    if (city.pic == R.drawable.workshop_red|| city.pic == R.drawable.workshop_neutral){
+                        city.pic = R.drawable.workshop_blue;
+                    }
                 }
             }
         }
@@ -335,6 +343,8 @@ public class MainGame {
     only airports can.
      */
     public static void resupply(City city){
+        if (!city.isOccupied())
+            return;
         Double moneyspent = Math.floor(city.getUnitHere().getUnitCost()*0.1);
 
         if(city.getOwner() == city.getUnitHere().getOwner()){
