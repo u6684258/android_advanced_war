@@ -16,34 +16,40 @@ public class DistanceTest {
     }
 
     @Test
-    public void distanceupperlefttolowerright(){
+    public void distanceUpperLeftToLowerRight(){
         test("A2","D7",8);
         test("E0","N5",14);
         test("I5","L6",4);
     }
 
     @Test
-    public void distanceupperrighttolowerleft(){
+    public void distanceUpperRightToLowerLeft(){
         test("B4","H2",8);
         test("G7","P0",16);
         test("K5","M4",3);
     }
 
     @Test
-    public void distancelowerlefttoupperright(){
+    public void distanceLowerLeftToUpperRight(){
         test("O1","A5",18);
         test("F3","C6",6);
         test("J5","I7",3);
     }
+    @Test
+    public void distanceLowerRightToUpperLeft(){
+        test("B5","A3",3);
+        test("H7","D0",11);
+        test("J3","I2",2);
+    }
 
     @Test
-    public void distancesamerow(){
+    public void distanceSameRow(){
         test("G3","G6",3);
         test("J7","J2",5);
     }
 
     @Test
-    public void distancesamecolumn(){
+    public void distanceSameColumn(){
         test("B2","M2",11);
         test("E5","A5",4);
     }
