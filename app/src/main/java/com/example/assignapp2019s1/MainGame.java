@@ -114,6 +114,7 @@ public class MainGame {
                 }
                 else return false;
             }
+            // TODO: 现用贪心算法，每步取cost最小。需优化
             else {
             for (String to : currentBoard.neighbors(startPos)) {
                 double a = currentBoard.map.get(to).getMovementCost();
